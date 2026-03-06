@@ -1,0 +1,79 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Banded: Default (width=200)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/banded_dtw.py",
+            "args": ["--band-width", "200", "--save-plot", "dtw_banded.png",
+            "--prefix", "154556.pre-fix.txt", "--corrected", "154556.txt"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Banded: Swap (width=200)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/banded_dtw.py",
+            "args": ["--band-width", "200", "--save-plot", "dtw_banded.png", "--swap", "--chunk-size", "5",
+            "--prefix", "154556.pre-fix.txt", "--corrected", "154556.txt"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "DTW: Chunked (10 words)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "args": ["--mode", "chunked", "--chunk-size", "10", "--search-window", "10", "--save-plot", "dtw_chunked.png"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "DTW: Banded (width=200)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "args": ["--mode", "banded", "--band-width", "200", "--save-plot", "dtw_banded.png",
+            "--prefix", "306013.pre-fix.txt", "--corrected", "306013.txt"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "DTW: Banded swap (width=200)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "args": ["--mode", "banded", "--band-width", "200", "--save-plot", "dtw_banded.png", "--swap", "--chunk-size", "5"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "DTW: Global Mode",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "args": ["--mode", "global", "--save-plot", "dtw_global.png"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "DTW: Subsequence Mode",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "args": ["--mode", "subsequence", "--save-plot", "dtw_subseq.png", "--swap"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "DTW: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
