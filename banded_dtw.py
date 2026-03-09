@@ -414,6 +414,271 @@ def detect_drop(results: list[AlignmentResult], threshold: float = 0.25,
 
 
 # =============================================================================
+# TRUNCATED FILE CREATION
+# =============================================================================
+
+def find_cutoff_index(vertical_jumps: list[dict], drop_info: dict,
+                      results: list, jump_threshold: int = 40,
+                      logger: logging.Logger = None):
+    if logger is None:
+        logger = logging.getLogger('dtw_match')
+
+    # Find first vertical jump > jump_threshold words (earliest by corrected_idx)
+    large_jumps = [j for j in vertical_jumps if j['jump_size'] > jump_threshold]
+    jump_cutoff = None
+    if large_jumps:
+        large_jumps.sort(key=lambda x: x['corrected_idx'])
+        jump_cutoff = large_jumps[0]['corrected_idx']
+        logger.info(f"First vertical jump > {jump_threshold} words at corrected index {jump_cutoff} "
+                    f"({large_jumps[0]['jump_size']} words)")
+
+    # Find first drop position in corrected file
+    drop_cutoff = None
+    if drop_info and drop_info['first_drop_idx'] is not None:
+        drop_idx = drop_info['first_drop_idx']
+        if drop_idx < len(results):
+            drop_cutoff = results[drop_idx].start_pos
+            logger.info(f"First drop at corrected index {drop_cutoff} "
+                       f"(segment index {drop_idx})")
+
+    candidates = [c for c in [jump_cutoff, drop_cutoff] if c is not None]
+    if not candidates:
+        logger.info("No cutoff point found (no large vertical jumps or drops detected)")
+        return None
+
+    cutoff = min(candidates)
+    source = 'vertical_jump' if (jump_cutoff is not None and cutoff == jump_cutoff) else 'drop'
+    logger.info(f"Cutoff index: {cutoff} (source: {source})")
+    return cutoff
+
+
+def build_word_char_spans(text: str) -> list[tuple[int, int]]:
+    cleaned = re.sub(r'[^\w\s\u0590-\u05FF]', ' ', text)
+    spans = []
+    i = 0
+    while i < len(cleaned):
+        while i < len(cleaned) and cleaned[i].isspace():
+            i += 1
+        if i >= len(cleaned):
+            break
+        start = i
+        while i < len(cleaned) and not cleaned[i].isspace():
+            i += 1
+        spans.append((start, i))
+    return spans
+
+
+def identify_replacements(
+    results: list[AlignmentResult],
+    segments: list[Segment],
+    all_prefix_words: list[str],
+    corrected_words: list[str],
+    alignment_path: list[tuple[int, int]],
+    cutoff_index: int,
+    low_score_threshold: float = 0.5,
+    high_dist_threshold: float = 0.7,
+    logger: logging.Logger = None
+) -> list[dict]:
+    if logger is None:
+        logger = logging.getLogger('dtw_match')
+
+    prefix_to_corrected = {}
+    corrected_to_prefix = {}
+    for p_idx, c_idx in alignment_path:
+        if p_idx not in prefix_to_corrected:
+            prefix_to_corrected[p_idx] = []
+        prefix_to_corrected[p_idx].append(c_idx)
+        if c_idx not in corrected_to_prefix:
+            corrected_to_prefix[c_idx] = []
+        corrected_to_prefix[c_idx].append(p_idx)
+
+    def is_anchored_externally(c_idx, seg_start, seg_end):
+        """Check if corrected word is well-matched by a prefix word outside the current segment."""
+        for p_idx in corrected_to_prefix.get(c_idx, []):
+            if p_idx < seg_start or p_idx > seg_end:
+                dist = word_distance(all_prefix_words[p_idx], corrected_words[c_idx])
+                if dist <= 0.5:
+                    return True, p_idx
+        return False, None
+
+    replacements = []
+    word_idx = 0
+    for seg, result in zip(segments, results):
+        seg_start_idx = word_idx
+        seg_end_idx = word_idx + len(seg.words) - 1
+        word_idx += len(seg.words)
+
+        if result.match_score >= low_score_threshold:
+            continue
+        if result.end_pos > cutoff_index:
+            continue
+
+        # Build per-word info: (prefix_idx, prefix_word, corrected_idx, distance)
+        word_info = []
+        for i, word in enumerate(seg.words):
+            prefix_idx = seg_start_idx + i
+            if prefix_idx in prefix_to_corrected:
+                c_idx = int(prefix_to_corrected[prefix_idx][0])
+                dist = word_distance(word, corrected_words[c_idx]) if c_idx < len(corrected_words) else 1.0
+                word_info.append((prefix_idx, word, c_idx, dist))
+            else:
+                word_info.append((prefix_idx, word, None, 1.0))
+
+        # Case A: all words map to the same corrected index
+        corrected_indices = set(w[2] for w in word_info if w[2] is not None)
+        if len(corrected_indices) == 1:
+            c_idx = corrected_indices.pop()
+            anchored, anchor_p_idx = is_anchored_externally(c_idx, seg_start_idx, seg_end_idx)
+            if anchored:
+                # Corrected word is well-matched elsewhere — insert instead of replace
+                mode = 'insert_before' if anchor_p_idx > seg_end_idx else 'insert_after'
+                replacements.append({
+                    'corrected_indices': [c_idx],
+                    'prefix_words': [w[1] for w in word_info],
+                    'mode': mode,
+                })
+                logger.debug(f"  Segment [{result.segment_id}] Case A: all map to corrected[{c_idx}] "
+                            f"-> {mode} {len(word_info)} prefix words (anchored by prefix[{anchor_p_idx}])")
+            else:
+                replacements.append({
+                    'corrected_indices': [c_idx],
+                    'prefix_words': [w[1] for w in word_info],
+                    'mode': 'replace',
+                })
+                logger.debug(f"  Segment [{result.segment_id}] Case A: all map to corrected[{c_idx}] "
+                            f"-> replacing with {len(word_info)} prefix words")
+            continue
+
+        # Case B: find consecutive groups with dist > threshold mapping to same corrected index
+        # A good-distance prefix word (dist <= threshold) or a different corrected index breaks the group
+        groups = []
+        current_group = []
+        current_c_idx = None
+        for info in word_info:
+            p_idx, p_word, c_idx, dist = info
+            if dist > high_dist_threshold and c_idx is not None and (current_c_idx is None or c_idx == current_c_idx):
+                current_group.append(info)
+                current_c_idx = c_idx
+            else:
+                if len(current_group) >= 2:
+                    groups.append(current_group)
+                current_group = []
+                current_c_idx = None
+        if len(current_group) >= 2:
+            groups.append(current_group)
+
+        for group in groups:
+            c_idx = group[0][2]
+            # Include all prefix words mapping to the same corrected index, in original prefix order
+            all_for_c_idx = [w[1] for w in word_info if w[2] == c_idx]
+            anchored, anchor_p_idx = is_anchored_externally(c_idx, seg_start_idx, seg_end_idx)
+            if anchored:
+                mode = 'insert_before' if anchor_p_idx > seg_end_idx else 'insert_after'
+                replacements.append({
+                    'corrected_indices': [c_idx],
+                    'prefix_words': all_for_c_idx,
+                    'mode': mode,
+                })
+                logger.debug(f"  Segment [{result.segment_id}] Case B: corrected[{c_idx}] "
+                            f"-> {mode} {len(all_for_c_idx)} prefix words (anchored by prefix[{anchor_p_idx}])")
+            else:
+                replacements.append({
+                    'corrected_indices': [c_idx],
+                    'prefix_words': all_for_c_idx,
+                    'mode': 'replace',
+                })
+                logger.debug(f"  Segment [{result.segment_id}] Case B: corrected[{c_idx}] "
+                            f"-> {len(all_for_c_idx)} prefix words (group of {len(group)} triggered)")
+
+    # Sort by corrected index and merge overlaps (only merge same mode)
+    replacements.sort(key=lambda r: min(r['corrected_indices']))
+    merged = []
+    for rep in replacements:
+        if (merged
+            and min(rep['corrected_indices']) <= max(merged[-1]['corrected_indices'])
+            and rep.get('mode', 'replace') == merged[-1].get('mode', 'replace')):
+            prev = merged[-1]
+            prev['corrected_indices'] = sorted(set(prev['corrected_indices'] + rep['corrected_indices']))
+            prev['prefix_words'].extend(rep['prefix_words'])
+        else:
+            merged.append(rep)
+
+    if merged:
+        logger.info(f"Identified {len(merged)} replacements for low-score segments before cutoff")
+        for i, r in enumerate(merged):
+            mode = r.get('mode', 'replace')
+            logger.info(f"  {i+1}. [{mode}] Corrected indices {r['corrected_indices']} -> "
+                       f"{len(r['prefix_words'])} prefix words: {' '.join(r['prefix_words'][:5])}{'...' if len(r['prefix_words']) > 5 else ''}")
+
+    return merged
+
+
+def create_truncated_file(corrected_path: str, corrected_words: list[str],
+                          cutoff_index: int, replacements: list[dict] = None,
+                          logger: logging.Logger = None):
+    if logger is None:
+        logger = logging.getLogger('dtw_match')
+
+    with open(corrected_path, 'r', encoding='utf-8') as f:
+        original_text = f.read()
+
+    word_spans = build_word_char_spans(original_text)
+
+    # Apply replacements in reverse order to preserve character positions
+    if replacements:
+        for rep in reversed(replacements):
+            first_idx = min(rep['corrected_indices'])
+            last_idx = max(rep['corrected_indices'])
+            if first_idx < len(word_spans) and last_idx < len(word_spans):
+                char_start = word_spans[first_idx][0]
+                char_end = word_spans[last_idx][1]
+                mode = rep.get('mode', 'replace')
+                insert_text = ' '.join(rep['prefix_words'])
+                if mode == 'insert_before':
+                    original_text = original_text[:char_start] + insert_text + ' ' + original_text[char_start:]
+                elif mode == 'insert_after':
+                    original_text = original_text[:char_end] + ' ' + insert_text + original_text[char_end:]
+                else:  # replace
+                    original_text = original_text[:char_start] + insert_text + original_text[char_end:]
+
+        # Rebuild spans after replacements
+        word_spans = build_word_char_spans(original_text)
+
+    # Compute adjusted cutoff accounting for word count changes
+    adjusted_cutoff = cutoff_index
+    if replacements:
+        for rep in replacements:
+            if min(rep['corrected_indices']) < cutoff_index:
+                mode = rep.get('mode', 'replace')
+                if mode in ('insert_before', 'insert_after'):
+                    # Corrected word preserved, only adding prefix words
+                    adjusted_cutoff += len(rep['prefix_words'])
+                else:
+                    # Replacing corrected words with prefix words
+                    adjusted_cutoff += len(rep['prefix_words']) - len(rep['corrected_indices'])
+
+    # Find character position for the adjusted cutoff
+    if adjusted_cutoff < len(word_spans):
+        cutoff_pos = word_spans[adjusted_cutoff][0]
+    else:
+        cutoff_pos = len(original_text)
+
+    truncated_text = original_text[:cutoff_pos].rstrip()
+
+    base, ext = corrected_path.rsplit('.', 1) if '.' in corrected_path else (corrected_path, 'txt')
+    output_path = f"{base}.truncated.{ext}"
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(truncated_text)
+
+    logger.info(f"Created truncated file: {output_path}")
+    logger.info(f"  Kept {cutoff_index} words (adjusted to {adjusted_cutoff} after replacements, char position {cutoff_pos})")
+    if replacements:
+        logger.info(f"  Applied {len(replacements)} replacements")
+    return output_path
+
+
+# =============================================================================
 # PLOTTING
 # =============================================================================
 
@@ -546,28 +811,35 @@ def plot_cumulative_cost_landscape(alignment, dist_matrix, band_width,
 # OUTPUT
 # =============================================================================
 
-def print_results(results: list[AlignmentResult]):
-    print("\n" + "=" * 80)
-    print("ALIGNMENT RESULTS")
-    print("=" * 80)
+def print_results(results: list[AlignmentResult], logger: logging.Logger = None):
+    if logger is None:
+        logger = logging.getLogger('dtw_match')
+
+    def output(msg=""):
+        print(msg)
+        logger.info(msg)
+
+    output("\n" + "=" * 80)
+    output("ALIGNMENT RESULTS")
+    output("=" * 80)
 
     for result in results:
-        print(f"\nSegment [{result.segment_id}] (pos {result.start_pos}-{result.end_pos})")
-        print(f"  Original: {result.original_text[:60]}{'...' if len(result.original_text) > 60 else ''}")
-        print(f"  Match score: {result.match_score:.1%}")
+        output(f"\nSegment [{result.segment_id}] (pos {result.start_pos}-{result.end_pos})")
+        output(f"  Original: {result.original_text[:60]}{'...' if len(result.original_text) > 60 else ''}")
+        output(f"  Match score: {result.match_score:.1%}")
 
         if result.insertions:
-            print(f"  Insertions (potential hallucinations): {result.insertions[:5]}{'...' if len(result.insertions) > 5 else ''}")
+            output(f"  Insertions (potential hallucinations): {result.insertions[:5]}{'...' if len(result.insertions) > 5 else ''}")
         if result.deletions:
-            print(f"  Deletions (missing from corrected): {result.deletions[:5]}{'...' if len(result.deletions) > 5 else ''}")
+            output(f"  Deletions (missing from corrected): {result.deletions[:5]}{'...' if len(result.deletions) > 5 else ''}")
 
-    print("\n" + "=" * 80)
-    print("SUMMARY")
-    print("=" * 80)
+    output("\n" + "=" * 80)
+    output("SUMMARY")
+    output("=" * 80)
 
     total_segments = len(results)
     if total_segments == 0:
-        print("\nNo segments to analyze.")
+        output("\nNo segments to analyze.")
         return
 
     avg_score = sum(r.match_score for r in results) / total_segments
@@ -579,24 +851,24 @@ def print_results(results: list[AlignmentResult]):
     total_insertions = sum(len(r.insertions) for r in results)
     total_deletions = sum(len(r.deletions) for r in results)
 
-    print(f"\nTotal segments: {total_segments}")
-    print(f"Average match score: {avg_score:.1%}")
-    print(f"Perfect matches (100%): {len(perfect_matches)} ({len(perfect_matches)/total_segments*100:.1f}%)")
-    print(f"High matches (>=80%): {len(high_matches)} ({len(high_matches)/total_segments*100:.1f}%)")
-    print(f"Low matches (<50%): {len(low_match_segments)} ({len(low_match_segments)/total_segments*100:.1f}%)")
-    print(f"\nTotal insertions (potential hallucinations): {total_insertions}")
-    print(f"Total deletions (missing from corrected): {total_deletions}")
-    print(f"Segments with high insertions (>3): {len(high_insertion_segments)}")
+    output(f"\nTotal segments: {total_segments}")
+    output(f"Average match score: {avg_score:.1%}")
+    output(f"Perfect matches (100%): {len(perfect_matches)} ({len(perfect_matches)/total_segments*100:.1f}%)")
+    output(f"High matches (>=80%): {len(high_matches)} ({len(high_matches)/total_segments*100:.1f}%)")
+    output(f"Low matches (<50%): {len(low_match_segments)} ({len(low_match_segments)/total_segments*100:.1f}%)")
+    output(f"\nTotal insertions (potential hallucinations): {total_insertions}")
+    output(f"Total deletions (missing from corrected): {total_deletions}")
+    output(f"Segments with high insertions (>3): {len(high_insertion_segments)}")
 
     if high_insertion_segments:
-        print("\nSegments with potential hallucinations (>3 insertions):")
+        output("\nSegments with potential hallucinations (>3 insertions):")
         for r in high_insertion_segments[:10]:
-            print(f"  [{r.segment_id}] - {len(r.insertions)} insertions: {r.insertions[:3]}...")
+            output(f"  [{r.segment_id}] - {len(r.insertions)} insertions: {r.insertions[:3]}...")
 
     if low_match_segments:
-        print("\nSegments with low match scores (<50%):")
+        output("\nSegments with low match scores (<50%):")
         for r in low_match_segments[:15]:
-            print(f"  [{r.segment_id}] - {r.match_score:.1%} match - deletions: {r.deletions[:3]}{'...' if len(r.deletions) > 3 else ''}")
+            output(f"  [{r.segment_id}] - {r.match_score:.1%} match - deletions: {r.deletions[:3]}{'...' if len(r.deletions) > 3 else ''}")
 
 
 # =============================================================================
@@ -677,23 +949,42 @@ def main():
     # Map segments
     print("\nMapping segments from alignment...")
     results = map_segments_from_global(segments, all_prefix_words, corrected_words, alignment_path)
-    print_results(results)
+    print_results(results, logger=logger)
+
+    # Drop detection (always run)
+    print("\nAnalyzing alignment quality drop...")
+    drop_info = detect_drop(results, threshold=0.25, word_count_threshold=15, ma_window=10, logger=logger)
+
+    if drop_info['first_drop_idx'] is not None:
+        print(f"\n*** FIRST DROP DETECTED ***")
+        print(f"  At segment index: {drop_info['first_drop_idx']}")
+        print(f"  Detection type: {drop_info['first_drop_type']}")
+        r = results[drop_info['first_drop_idx']]
+        print(f"  Segment [{r.segment_id}]: score={r.match_score:.1%}")
+        print(f"  Position in corrected file: {r.start_pos}")
+    else:
+        print("\nNo significant drop detected (threshold=0.25)")
+
+    # Truncated file creation
+    cutoff_index = find_cutoff_index(vertical_jumps, drop_info, results,
+                                     jump_threshold=40, logger=logger)
+    if cutoff_index is not None:
+        replacements = identify_replacements(
+            results, segments, all_prefix_words, corrected_words,
+            alignment_path, cutoff_index, logger=logger
+        )
+        output_path = create_truncated_file(
+            args.corrected, corrected_words, cutoff_index,
+            replacements=replacements, logger=logger
+        )
+        print(f"\n*** TRUNCATED FILE CREATED ***")
+        print(f"  Output: {output_path}")
+        print(f"  Kept {cutoff_index} of {len(corrected_words)} words")
+    else:
+        print("\nNo truncation needed (no large jumps or drops detected)")
 
     # Plots
     if not args.no_plot:
-        print("\nAnalyzing alignment quality drop...")
-        drop_info = detect_drop(results, threshold=0.25, word_count_threshold=15, ma_window=10, logger=logger)
-
-        if drop_info['first_drop_idx'] is not None:
-            print(f"\n*** FIRST DROP DETECTED ***")
-            print(f"  At segment index: {drop_info['first_drop_idx']}")
-            print(f"  Detection type: {drop_info['first_drop_type']}")
-            r = results[drop_info['first_drop_idx']]
-            print(f"  Segment [{r.segment_id}]: score={r.match_score:.1%}")
-            print(f"  Position in corrected file: {r.start_pos}")
-        else:
-            print("\nNo significant drop detected (threshold=0.25)")
-
         print("\nGenerating match score map...")
         save_path_scores = args.save_plot.replace('.png', '_scores.png') if args.save_plot else None
         plot_match_scores(

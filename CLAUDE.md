@@ -72,6 +72,26 @@ Output example:
 - All jumps (≥5 words) logged to `dtw.log`
 - Consecutive jumps at adjacent indices often represent a single large deletion
 
+### Automatic Truncation & Fixing
+
+Banded mode automatically creates a truncated reference file (`*.truncated.txt`) by:
+
+1. **Finding the cutoff point** — takes the minimum of:
+   - First vertical jump > 40 words (by `corrected_idx`)
+   - First moving-average drop below 0.25 threshold (segment's `start_pos`)
+
+2. **Fixing low-score segments** before the cutoff — for segments with match score < 50%:
+   - **Case A:** All prefix words map to the same corrected word → replace that word with all prefix words (reference has missing content)
+   - **Case B:** Consecutive groups (≥2) of prefix words with distance > 0.7 → replace the corresponding corrected words with the prefix words. Corrected words that are well-matched (dist ≤ 0.5) by other prefix words outside the group are preserved (insert instead of replace)
+
+3. **Writing the file** — truncates the original reference file at the cutoff position, preserving original punctuation and formatting. Replacements are applied at character positions in the original text.
+
+Key functions in `banded_dtw.py`:
+- `find_cutoff_index()` — determines where to truncate
+- `identify_replacements()` — finds low-score segments to fix
+- `build_word_char_spans()` — maps word indices to character positions in original text
+- `create_truncated_file()` — applies replacements and truncates
+
 ## Architecture
 
 Entry point is `main.py`. Dependencies: `dtw-python`, `numpy`, `matplotlib`.
