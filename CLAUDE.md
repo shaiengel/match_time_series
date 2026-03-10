@@ -104,7 +104,7 @@ Key functions in `banded_dtw.py`:
 
 ## Architecture
 
-Entry point is `main.py`. Dependencies: `dtw-python`, `numpy`, `matplotlib`.
+Entry point is `main.py`. Dependencies: `dtw-python`, `numpy`, `matplotlib`, `pandas`, `openpyxl`.
 
 ## Debug Logging
 
@@ -116,3 +116,53 @@ Segment [17]: 85% (7 words) pos 120-126
 ```
 
 For low-scoring segments (<50%), word-level alignment details are logged.
+
+## Stable Whisper Probability Analysis
+
+`probability_analysis.py` — Analyzes JSON output from stable_whisper. Extracts word-level data and detects transcription quality degradation.
+
+```bash
+uv run python probability_analysis.py
+```
+
+### JSON Input Structure (stable_whisper output)
+```json
+{
+  "segments": [
+    {
+      "words": [
+        {"word": "...", "start": 2.85, "end": 3.2, "probability": 0.85, "tokens": [...]}
+      ]
+    }
+  ]
+}
+```
+
+### Output Excel Structure
+
+#### Sheet 1: "Words"
+| Column | Description |
+|--------|-------------|
+| word | Transcribed word (Hebrew) |
+| start_time | Start time in seconds |
+| end_time | End time in seconds |
+| probability | Raw probability from Whisper |
+| moving_avg | 100-point rolling average of probability |
+| cusum | Cumulative sum of deviations from baseline |
+| gradient | Rate of change of moving average |
+
+#### Sheet 2: "Detection Results"
+| Column | Description |
+|--------|-------------|
+| Method | Detection algorithm name |
+| Index | Detected degradation index (-1 = not detected) |
+| Description | What the method detects |
+
+### Degradation Detection Methods
+
+1. **Gradient** (steepest drop) — Finds single point with most negative gradient. May detect temporary dips.
+2. **Sustained** (recommended) — Finds where moving_avg stays below 0.25 for 200 consecutive points. Most reliable for confirming permanent degradation.
+3. **Rolling Average** (50% baseline) — Detects when moving_avg drops below 50% of baseline (indices 100-300).
+4. **CUSUM** (-50) — Cumulative sum of deviations from baseline. Triggers when cumsum < -50.
+
+**Note:** Methods return -1 when no degradation is detected.
