@@ -119,11 +119,24 @@ For low-scoring segments (<50%), word-level alignment details are logged.
 
 ## Stable Whisper Probability Analysis
 
-`probability_analysis.py` — Analyzes JSON output from stable_whisper. Extracts word-level data and detects transcription quality degradation.
+`probability_analysis.py` — Analyzes JSON output from stable_whisper. Extracts word-level data and detects transcription quality degradation. All output (Excel + PNG plots) goes to the `output/` folder.
 
 ```bash
-uv run python probability_analysis.py
+uv run python probability_analysis.py <json_file> [--ma-window N] [--target F]
 ```
+
+### Arguments
+
+```bash
+json_file                # Path to stable_whisper JSON file (positional, required)
+--ma-window N            # Moving average window size (default: 100)
+--target F               # Target probability threshold for degradation detection (default: 0.25)
+```
+
+The `--target` value is used consistently across all detection methods:
+- **Rolling Average** — triggers when moving avg drops below `target`
+- **CUSUM** — cumulative deviation reference point
+- **Sustained** — threshold for consecutive-points check
 
 ### JSON Input Structure (stable_whisper output)
 ```json
@@ -147,8 +160,8 @@ uv run python probability_analysis.py
 | start_time | Start time in seconds |
 | end_time | End time in seconds |
 | probability | Raw probability from Whisper |
-| moving_avg | 100-point rolling average of probability |
-| cusum | Cumulative sum of deviations from baseline |
+| moving_avg | Rolling average of probability (window configurable via `--ma-window`) |
+| cusum | Cumulative sum of deviations from target |
 | gradient | Rate of change of moving average |
 
 #### Sheet 2: "Detection Results"
@@ -161,8 +174,8 @@ uv run python probability_analysis.py
 ### Degradation Detection Methods
 
 1. **Gradient** (steepest drop) — Finds single point with most negative gradient. May detect temporary dips.
-2. **Sustained** (recommended) — Finds where moving_avg stays below 0.25 for 200 consecutive points. Most reliable for confirming permanent degradation.
-3. **Rolling Average** (50% baseline) — Detects when moving_avg drops below 50% of baseline (indices 100-300).
-4. **CUSUM** (-50) — Cumulative sum of deviations from baseline. Triggers when cumsum < -50.
+2. **Sustained** (recommended) — Finds where moving_avg stays below `target` for 200 consecutive points. Most reliable for confirming permanent degradation.
+3. **Rolling Average** — Detects when moving_avg drops below `target`.
+4. **CUSUM** (-50) — Cumulative sum of deviations from `target`. Triggers when cumsum < -50.
 
 **Note:** Methods return -1 when no degradation is detected.
