@@ -47,11 +47,18 @@ uv add <package>
 --save-plot <file.png>   # Save plot to file
 --no-plot                # Disable plotting
 --log-file <file>        # Log file (default: dtw.log)
+--step-pattern <pattern> # DTW step pattern (default: asymmetric)
+--match-threshold F      # Word-level distance threshold for a good match (default: 0.5)
+--high-dist-threshold F  # Distance threshold for grouping bad-match words in replacements (default: 0.7)
+--low-score-threshold F  # Segment score threshold for triggering replacements (default: 0.5)
+--jump-threshold N       # Minimum vertical jump size for cutoff detection (default: 40)
+--drop-threshold F       # Moving average threshold for quality drop detection (default: 0.25)
+--ma-window N            # Moving average window size for drop detection (default: 10)
 ```
 
 ## Banded Mode Details
 
-- Uses `asymmetric` step pattern with slanted band constraint
+- Uses `asymmetric` step pattern by default (configurable via `--step-pattern`)
 - Recommended `--band-width 200` for transcription files with ~500 word differences
 - Generates two plots:
   - `*_scores.png` — Match score map (segment positions + score progression)
@@ -77,12 +84,15 @@ Output example:
 Banded mode automatically creates a truncated reference file (`*.truncated.txt`) by:
 
 1. **Finding the cutoff point** — takes the minimum of:
-   - First vertical jump > 40 words (by `corrected_idx`)
-   - First moving-average drop below 0.25 threshold (segment's `start_pos`)
+   - First vertical jump > `--jump-threshold` words (default: 40, by `corrected_idx`)
+   - First moving-average drop below `--drop-threshold` (default: 0.25, segment's `start_pos`, window size: `--ma-window`)
 
-2. **Fixing low-score segments** before the cutoff — for segments with match score < 50%:
+2. **Fixing low-score segments** before the cutoff — for segments with match score < `--low-score-threshold` (default: 0.5):
    - **Case A:** All prefix words map to the same corrected word → replace that word with all prefix words (reference has missing content)
-   - **Case B:** Consecutive groups (≥2) of prefix words with distance > 0.7 → replace the corresponding corrected words with the prefix words. Corrected words that are well-matched (dist ≤ 0.5) by other prefix words outside the group are preserved (insert instead of replace)
+   - **Case B:** Consecutive groups (≥2) of prefix words with distance > `--high-dist-threshold` (default: 0.7) mapping to the same corrected word → replace the corresponding corrected words with the prefix words. A prefix word with good distance (≤ threshold) breaks the group. All prefix words mapping to the targeted corrected word are included in the replacement (in original prefix order), not just the group members.
+   - **External anchoring:** Before replacing, checks if the corrected word is well-matched (dist ≤ 0.5) by a prefix word in an adjacent segment. If anchored, inserts the prefix words before/after the corrected word (based on speech order) instead of replacing it.
+
+   See `replacements.md` for detailed logic documentation.
 
 3. **Writing the file** — truncates the original reference file at the cutoff position, preserving original punctuation and formatting. Replacements are applied at character positions in the original text.
 

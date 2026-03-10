@@ -147,7 +147,7 @@ def word_distance(w1: str, w2: str) -> float:
 # BANDED DTW ALIGNMENT
 # =============================================================================
 
-def banded_dtw_alignment(all_prefix_words: list[str], corrected_words: list[str], band_width: int = 200):
+def banded_dtw_alignment(all_prefix_words: list[str], corrected_words: list[str], band_width: int = 200, step_pattern: str = 'asymmetric'):
     n, m = len(all_prefix_words), len(corrected_words)
     print(f"  Computing distance matrix ({n} x {m})...")
 
@@ -162,7 +162,7 @@ def banded_dtw_alignment(all_prefix_words: list[str], corrected_words: list[str]
     print(f"  (Divergence beyond {band_width} words = potential hallucination)")
     alignment = dtw(
         dist_matrix,
-        step_pattern='asymmetric',
+        step_pattern=step_pattern,
         keep_internals=True,
         window_type='slantedband',
         window_args={'window_size': band_width}
@@ -175,10 +175,10 @@ def map_segments_from_global(
     segments: list[Segment],
     all_prefix_words: list[str],
     corrected_words: list[str],
-    alignment_path: list[tuple[int, int]]
+    alignment_path: list[tuple[int, int]],
+    match_threshold: float = 0.5
 ) -> list[AlignmentResult]:
     results = []
-    match_threshold = 0.5
     logger = logging.getLogger('dtw_match')
 
     prefix_to_corrected = {}
@@ -233,7 +233,7 @@ def map_segments_from_global(
         match_score = matches / len(seg.words) if seg.words else 0.0
         matched_text = ' '.join(corrected_words[matched_start:matched_end]) if corrected_positions else ""
 
-        if match_score < 0.5:
+        if match_score < match_threshold:
             logger.debug(f"  Low score segment [{seg.id}]:")
             for i, word in enumerate(seg.words):
                 prefix_idx = seg_start_idx + i
@@ -477,6 +477,7 @@ def identify_replacements(
     cutoff_index: int,
     low_score_threshold: float = 0.5,
     high_dist_threshold: float = 0.7,
+    match_threshold: float = 0.5,
     logger: logging.Logger = None
 ) -> list[dict]:
     if logger is None:
@@ -497,7 +498,7 @@ def identify_replacements(
         for p_idx in corrected_to_prefix.get(c_idx, []):
             if p_idx < seg_start or p_idx > seg_end:
                 dist = word_distance(all_prefix_words[p_idx], corrected_words[c_idx])
-                if dist <= 0.5:
+                if dist <= match_threshold:
                     return True, p_idx
         return False, None
 
@@ -684,7 +685,8 @@ def create_truncated_file(corrected_path: str, corrected_words: list[str],
 
 def plot_match_scores(results: list[AlignmentResult], corrected_len: int,
                       title="Banded DTW Match Scores", save_path=None,
-                      drop_info: dict = None):
+                      drop_info: dict = None, drop_threshold: float = 0.25,
+                      ma_window: int = 10):
     fig, axes = plt.subplots(2, 1, figsize=(14, 10))
 
     segment_ids = [r.segment_id for r in results]
@@ -721,21 +723,21 @@ def plot_match_scores(results: list[AlignmentResult], corrected_len: int,
 
     if drop_info and 'moving_avg' in drop_info:
         moving_avg = drop_info['moving_avg']
-        ax2.plot(indices, moving_avg, 'purple', linewidth=2, alpha=0.9, label='Moving avg (10 segments)')
+        ax2.plot(indices, moving_avg, 'purple', linewidth=2, alpha=0.9, label=f'Moving avg ({ma_window} segments)')
 
-    ax2.axhline(y=0.25, color='red', linestyle='--', linewidth=2, alpha=0.8, label='0.25 threshold')
+    ax2.axhline(y=drop_threshold, color='red', linestyle='--', linewidth=2, alpha=0.8, label=f'{drop_threshold} threshold')
 
     if drop_info and drop_info['first_drop_idx'] is not None:
         drop_idx = drop_info['first_drop_idx']
         ax2.axvline(x=drop_idx, color='red', linestyle='-', linewidth=2, alpha=0.8)
         ax2.annotate(f'First drop\n(segment {drop_idx})\nType: {drop_info["first_drop_type"]}',
-                     xy=(drop_idx, 0.25), xytext=(drop_idx + 5, 0.5),
+                     xy=(drop_idx, drop_threshold), xytext=(drop_idx + 5, 0.5),
                      fontsize=10, color='red',
                      arrowprops=dict(arrowstyle='->', color='red'))
 
     ax2.set_xlabel('Segment Index')
     ax2.set_ylabel('Match Score')
-    ax2.set_title('Match Score with Moving Average (window=10)')
+    ax2.set_title(f'Match Score with Moving Average (window={ma_window})')
     ax2.set_ylim(-0.05, 1.05)
     ax2.legend(loc='upper right')
     ax2.grid(True, alpha=0.3)
@@ -887,6 +889,28 @@ def main():
     parser.add_argument('--save-plot', metavar='PATH', help='Save plot to file instead of showing')
     parser.add_argument('--no-plot', action='store_true', help='Skip plotting')
     parser.add_argument('--log-file', type=str, default=None, help='Log file path (default: dtw.log)')
+    step_pattern_choices = [
+        'asymmetric', 'asymmetricP0', 'asymmetricP05', 'asymmetricP1', 'asymmetricP2',
+        'symmetric1', 'symmetric2', 'symmetricP0', 'symmetricP05', 'symmetricP1', 'symmetricP2',
+        'rigid', 'mori2006',
+        'typeIa', 'typeIas', 'typeIb', 'typeIbs', 'typeIc', 'typeIcs', 'typeId', 'typeIds',
+        'typeIIa', 'typeIIb', 'typeIIc', 'typeIId', 'typeIIIc', 'typeIVc',
+    ]
+    parser.add_argument('--step-pattern', type=str, default='asymmetric',
+                        choices=step_pattern_choices,
+                        help='DTW step pattern (default: asymmetric)')
+    parser.add_argument('--match-threshold', type=float, default=0.5,
+                        help='Word-level distance threshold for a good match (default: 0.5)')
+    parser.add_argument('--high-dist-threshold', type=float, default=0.7,
+                        help='Distance threshold for grouping bad-match words in replacements (default: 0.7)')
+    parser.add_argument('--low-score-threshold', type=float, default=0.5,
+                        help='Segment score threshold for triggering replacements (default: 0.5)')
+    parser.add_argument('--jump-threshold', type=int, default=40,
+                        help='Minimum vertical jump size for cutoff detection (default: 40)')
+    parser.add_argument('--drop-threshold', type=float, default=0.25,
+                        help='Moving average threshold for quality drop detection (default: 0.25)')
+    parser.add_argument('--ma-window', type=int, default=10,
+                        help='Moving average window size for drop detection (default: 10)')
     args = parser.parse_args()
 
     if args.swap:
@@ -928,7 +952,8 @@ def main():
     # Run banded DTW
     print(f"\nRunning banded DTW alignment...")
     alignment_path, alignment_obj, dist_matrix = banded_dtw_alignment(
-        all_prefix_words, corrected_words, band_width=args.band_width
+        all_prefix_words, corrected_words, band_width=args.band_width,
+        step_pattern=args.step_pattern
     )
     print(f"  Alignment path length: {len(alignment_path)}")
 
@@ -948,12 +973,13 @@ def main():
 
     # Map segments
     print("\nMapping segments from alignment...")
-    results = map_segments_from_global(segments, all_prefix_words, corrected_words, alignment_path)
+    results = map_segments_from_global(segments, all_prefix_words, corrected_words, alignment_path,
+                                       match_threshold=args.match_threshold)
     print_results(results, logger=logger)
 
     # Drop detection (always run)
     print("\nAnalyzing alignment quality drop...")
-    drop_info = detect_drop(results, threshold=0.25, word_count_threshold=15, ma_window=10, logger=logger)
+    drop_info = detect_drop(results, threshold=args.drop_threshold, word_count_threshold=15, ma_window=args.ma_window, logger=logger)
 
     if drop_info['first_drop_idx'] is not None:
         print(f"\n*** FIRST DROP DETECTED ***")
@@ -963,15 +989,19 @@ def main():
         print(f"  Segment [{r.segment_id}]: score={r.match_score:.1%}")
         print(f"  Position in corrected file: {r.start_pos}")
     else:
-        print("\nNo significant drop detected (threshold=0.25)")
+        print(f"\nNo significant drop detected (threshold={args.drop_threshold})")
 
     # Truncated file creation
     cutoff_index = find_cutoff_index(vertical_jumps, drop_info, results,
-                                     jump_threshold=40, logger=logger)
+                                     jump_threshold=args.jump_threshold, logger=logger)
     if cutoff_index is not None:
         replacements = identify_replacements(
             results, segments, all_prefix_words, corrected_words,
-            alignment_path, cutoff_index, logger=logger
+            alignment_path, cutoff_index,
+            low_score_threshold=args.low_score_threshold,
+            high_dist_threshold=args.high_dist_threshold,
+            match_threshold=args.match_threshold,
+            logger=logger
         )
         output_path = create_truncated_file(
             args.corrected, corrected_words, cutoff_index,
@@ -992,7 +1022,9 @@ def main():
             len(corrected_words),
             title=f"Banded DTW Match Scores (width={args.band_width}): {args.prefix} → {args.corrected}",
             save_path=save_path_scores,
-            drop_info=drop_info
+            drop_info=drop_info,
+            drop_threshold=args.drop_threshold,
+            ma_window=args.ma_window
         )
 
         print("\nGenerating cumulative cost landscape plot...")

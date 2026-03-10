@@ -4,7 +4,7 @@ This document describes how `identify_replacements()` in `banded_dtw.py` decides
 
 ## Overview
 
-After banded DTW alignment, each prefix word maps to one or more corrected words. For low-score segments (< 50% match), the code identifies corrected words that should be replaced with the original prefix words to restore content the LLM incorrectly changed.
+After banded DTW alignment, each prefix word maps to one or more corrected words. For low-score segments (< 50% match) **before the cutoff index**, the code identifies corrected words that should be replaced with the original prefix words to restore content the LLM incorrectly changed. Segments whose `end_pos` is beyond the cutoff are skipped entirely — replacements only apply to the portion of the file that will be kept in the truncated output.
 
 ## Grouping Rules
 
