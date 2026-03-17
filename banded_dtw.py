@@ -6,6 +6,7 @@ using banded (Sakoe-Chiba) DTW to detect hallucinations and content removal.
 """
 
 from dataclasses import dataclass
+import os
 import re
 import sys
 import argparse
@@ -666,8 +667,9 @@ def create_truncated_file(corrected_path: str, corrected_words: list[str],
 
     truncated_text = original_text[:cutoff_pos].rstrip()
 
-    base, ext = corrected_path.rsplit('.', 1) if '.' in corrected_path else (corrected_path, 'txt')
-    output_path = f"{base}.truncated.{ext}"
+    filename = os.path.basename(corrected_path)
+    base, ext = filename.rsplit('.', 1) if '.' in filename else (filename, 'txt')
+    output_path = os.path.join('output', f"{base}.truncated.{ext}")
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(truncated_text)
@@ -883,10 +885,10 @@ def main():
                         help='Band width for Sakoe-Chiba constraint (default: 200)')
     parser.add_argument('--chunk-size', type=int, default=10,
                         help='Chunk size when using --swap (default: 10 words)')
-    parser.add_argument('--prefix', default='154556.pre-fix.txt', help='Pre-fix file path')
-    parser.add_argument('--corrected', default='154556.txt', help='Corrected file path')
+    parser.add_argument('--prefix', default='input/154556.pre-fix.txt', help='Pre-fix file path')
+    parser.add_argument('--corrected', default='input/154556.txt', help='Corrected file path')
     parser.add_argument('--swap', action='store_true', help='Swap prefix/corrected; parse prefix as chunks')
-    parser.add_argument('--save-plot', metavar='PATH', help='Save plot to file instead of showing')
+    parser.add_argument('--save-plot', action='store_true', help='Save plot to file instead of showing')
     parser.add_argument('--no-plot', action='store_true', help='Skip plotting')
     parser.add_argument('--log-file', type=str, default=None, help='Log file path (default: dtw.log)')
     step_pattern_choices = [
@@ -1016,7 +1018,13 @@ def main():
     # Plots
     if not args.no_plot:
         print("\nGenerating match score map...")
-        save_path_scores = args.save_plot.replace('.png', '_scores.png') if args.save_plot else None
+        if args.save_plot:
+            prefix_id = os.path.splitext(os.path.basename(args.prefix))[0].replace('.pre-fix', '')
+            save_plot = os.path.join('output', f"result_{prefix_id}.png")
+            save_path_scores = os.path.join('output', f"result_scores_{prefix_id}.png")
+        else:
+            save_plot = None
+            save_path_scores = None
         plot_match_scores(
             results,
             len(corrected_words),
@@ -1033,7 +1041,7 @@ def main():
             dist_matrix,
             band_width=args.band_width,
             title=f"Banded DTW Alignment (width={args.band_width}): {args.prefix} → {args.corrected}",
-            save_path=args.save_plot
+            save_path=save_plot
         )
 
 
