@@ -9,6 +9,7 @@ from dataclasses import dataclass
 import os
 import re
 import sys
+import math
 import argparse
 import logging
 import numpy as np
@@ -148,8 +149,18 @@ def word_distance(w1: str, w2: str) -> float:
 # BANDED DTW ALIGNMENT
 # =============================================================================
 
-def banded_dtw_alignment(all_prefix_words: list[str], corrected_words: list[str], band_width: int = 200, step_pattern: str = 'asymmetric'):
+def banded_dtw_alignment(all_prefix_words: list[str], corrected_words: list[str], band_width: int = None, step_pattern: str = 'asymmetric', window_type: str = 'slantedband'):
     n, m = len(all_prefix_words), len(corrected_words)
+
+    if window_type in ('sakoechiba', 'slantedband') and band_width is None:        
+        band_width = int(math.sqrt(max(n, m)) * 5)
+        # sakoechiba requires band_width >= |n-m| to reach the endpoint
+        if window_type == 'sakoechiba':
+            band_width = max(band_width, abs(n - m) + 50)
+        print(f"  Auto-calculated band width: {band_width} ({window_type}, based on {max(n, m)} words)")
+    elif band_width is None:
+        band_width = 200
+
     print(f"  Computing distance matrix ({n} x {m})...")
 
     dist_matrix = np.zeros((n, m), dtype=np.float64)
@@ -159,17 +170,24 @@ def banded_dtw_alignment(all_prefix_words: list[str], corrected_words: list[str]
         for j, w2 in enumerate(corrected_words):
             dist_matrix[i, j] = word_distance(w1, w2)
 
-    print(f"  Running DTW with slanted band constraint (width={band_width})...")
+    print(f"  Running DTW with {window_type} constraint (width={band_width})...")
     print(f"  (Divergence beyond {band_width} words = potential hallucination)")
-    alignment = dtw(
-        dist_matrix,
-        step_pattern=step_pattern,
-        keep_internals=True,
-        window_type='slantedband',
-        window_args={'window_size': band_width}
-    )
+    if window_type == 'none':
+        alignment = dtw(
+            dist_matrix,
+            step_pattern=step_pattern,
+            keep_internals=True,
+        )
+    else:
+        alignment = dtw(
+            dist_matrix,
+            step_pattern=step_pattern,
+            keep_internals=True,
+            window_type=window_type,
+            window_args={'window_size': band_width}
+        )
 
-    return list(zip(alignment.index1, alignment.index2)), alignment, dist_matrix
+    return list(zip(alignment.index1, alignment.index2)), alignment, dist_matrix, band_width
 
 
 def map_segments_from_global(
@@ -881,8 +899,11 @@ def print_results(results: list[AlignmentResult], logger: logging.Logger = None)
 
 def main():
     parser = argparse.ArgumentParser(description='Banded DTW Text Matching for Hebrew Transcription Alignment')
-    parser.add_argument('--band-width', type=int, default=200,
-                        help='Band width for Sakoe-Chiba constraint (default: 200)')
+    parser.add_argument('--band-width', type=int, default=None,
+                        help='Band width for DTW window constraint (default: auto-calculated)')
+    parser.add_argument('--window-type', type=str, default='slantedband',
+                        choices=['sakoechiba', 'slantedband', 'itakura', 'none'],
+                        help='DTW window type (default: slantedband)')
     parser.add_argument('--chunk-size', type=int, default=10,
                         help='Chunk size when using --swap (default: 10 words)')
     parser.add_argument('--prefix', default='input/154556.pre-fix.txt', help='Pre-fix file path')
@@ -920,10 +941,11 @@ def main():
 
     logger = setup_logging(args.log_file)
 
+    bw_display = args.band_width if args.band_width is not None else 'auto'
     print("=" * 80)
-    print(f"Banded DTW Text Matching (band_width={args.band_width})")
+    print(f"Banded DTW Text Matching (band_width={bw_display}, window_type={args.window_type})")
     print("=" * 80)
-    logger.info(f"Mode: banded, band_width={args.band_width}")
+    logger.info(f"Mode: banded, band_width={bw_display}, window_type={args.window_type}")
 
     # Parse files
     print(f"\nParsing {args.prefix}...")
@@ -953,9 +975,9 @@ def main():
 
     # Run banded DTW
     print(f"\nRunning banded DTW alignment...")
-    alignment_path, alignment_obj, dist_matrix = banded_dtw_alignment(
+    alignment_path, alignment_obj, dist_matrix, effective_band_width = banded_dtw_alignment(
         all_prefix_words, corrected_words, band_width=args.band_width,
-        step_pattern=args.step_pattern
+        step_pattern=args.step_pattern, window_type=args.window_type
     )
     print(f"  Alignment path length: {len(alignment_path)}")
 
@@ -1028,7 +1050,7 @@ def main():
         plot_match_scores(
             results,
             len(corrected_words),
-            title=f"Banded DTW Match Scores (width={args.band_width}): {args.prefix} → {args.corrected}",
+            title=f"Banded DTW Match Scores (width={effective_band_width}): {args.prefix} → {args.corrected}",
             save_path=save_path_scores,
             drop_info=drop_info,
             drop_threshold=args.drop_threshold,
@@ -1039,8 +1061,8 @@ def main():
         plot_cumulative_cost_landscape(
             alignment_obj,
             dist_matrix,
-            band_width=args.band_width,
-            title=f"Banded DTW Alignment (width={args.band_width}): {args.prefix} → {args.corrected}",
+            band_width=effective_band_width,
+            title=f"Banded DTW Alignment (width={effective_band_width}): {args.prefix} → {args.corrected}",
             save_path=save_plot
         )
 

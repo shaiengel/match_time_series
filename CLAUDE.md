@@ -41,7 +41,8 @@ uv add <package>
 --prefix <file>          # Pre-fix file (default: 154556.pre-fix.txt)
 --corrected <file>       # Corrected file (default: 154556.txt)
 --swap                   # Swap prefix/corrected files; parses prefix as 10-word chunks
---band-width N           # Band width for banded mode (recommended: 200)
+--band-width N           # Band width for banded mode (default: auto-calculated)
+--window-type TYPE       # DTW window type: slantedband (default), sakoechiba, itakura, none
 --chunk-size N           # Words per chunk for chunked mode (default: 10)
 --search-window N        # Search window for chunked/subsequence (default: 10)
 --save-plot <file.png>   # Save plot to file
@@ -59,10 +60,25 @@ uv add <package>
 ## Banded Mode Details
 
 - Uses `asymmetric` step pattern by default (configurable via `--step-pattern`)
-- Recommended `--band-width 200` for transcription files with ~500 word differences
+- Band width is **auto-calculated** by default based on word count difference between files. Explicitly setting `--band-width` disables auto-calculation.
 - Generates two plots:
   - `*_scores.png` — Match score map (segment positions + score progression)
   - `*.png` — Cumulative cost landscape with band boundaries (yellow dashed lines)
+
+### Window Types & Band Width Auto-Calculation
+
+| Type | Auto band width | Description |
+|------|----------------|-------------|
+| `slantedband` (default) | `diff // 2 + 50` | Band around `(0,0)→(n,m)` diagonal. Assumes extra words are uniformly distributed. |
+| `sakoechiba` | `diff + 50` | Band around `i=j` diagonal. No length adjustment. Needs wider band. |
+| `itakura` | N/A | Itakura parallelogram constraint. |
+| `none` | N/A | No window constraint. |
+
+Where `diff = abs(prefix_words - corrected_words)`.
+
+When `--band-width` is explicitly set, the user's value is used as-is (no auto-calculation). Note: `sakoechiba` requires band width ≥ `diff` to reach the endpoint, otherwise DTW fails with "No warping path found".
+
+`slantedband` can fail when extra words cluster in one region (not uniformly distributed), causing the correct alignment to fall outside the band. See `window_types.md` for detailed analysis.
 
 ### Vertical Jump Detection
 
