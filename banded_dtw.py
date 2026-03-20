@@ -973,6 +973,20 @@ def main():
         all_prefix_words.extend(seg.words)
     print(f"  Total pre-fix words: {len(all_prefix_words)}")
 
+    # Check word count difference before running DTW
+    n_prefix = len(all_prefix_words)
+    n_corrected = len(corrected_words)
+    word_diff = abs(n_prefix - n_corrected)
+    ratio = max(n_prefix, n_corrected) / min(n_prefix, n_corrected) if min(n_prefix, n_corrected) > 0 else float('inf')
+    if ratio > 2.0:
+        print(f"\n*** ABORTING: Word count difference is too large for DTW alignment ***")
+        print(f"  Prefix words:    {n_prefix}")
+        print(f"  Corrected words: {n_corrected}")
+        print(f"  Difference:      {word_diff} words (ratio {ratio:.1f}x)")
+        print(f"  DTW requires roughly similar-length inputs. A ratio > 2x will likely fail or produce meaningless results.")
+        logger.error(f"Aborted: word count ratio {ratio:.1f}x ({n_prefix} vs {n_corrected}) exceeds maximum 2.0x")
+        sys.exit(1)
+
     # Run banded DTW
     print(f"\nRunning banded DTW alignment...")
     alignment_path, alignment_obj, dist_matrix, effective_band_width = banded_dtw_alignment(

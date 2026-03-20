@@ -2,12 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Banded: Default (width=200)",
+            "name": "Banded: Default (width=auto)",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/banded_dtw.py",
-            "args": ["--band-width", "200", "--save-plot",
-            "--prefix", "input/151913.pre-fix.txt", "--corrected", "input/151913.txt"],
+            "args": ["--save-plot", "--window-type", "slantedband",
+            "--prefix", "input/306031.pre-fix.txt", "--corrected", "input/306031.txt"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
@@ -26,7 +26,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/probability_analysis.py",
-            "args": ["input/151448.json", "--ma-window", "100", "--target", "0.25"],
+            "args": ["input/306031.json", "--ma-window", "100", "--target", "0.25"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
@@ -76,6 +76,42 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },        
+        {
+            "name": "S3 Word Diff Fetch",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/s3_word_diff.py",
+            "args": ["--fetch"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "S3 Word Diff Plot",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/s3_word_diff.py",
+            "args": ["--plot"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "S3 Word Diff Plot Bins",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/s3_word_diff.py",
+            "args": ["--plot-bins", "--last", "3"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "S3 Word Diff Date",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/s3_word_diff.py",
+            "args": ["--date", "2026-03-02", "--plot-max", "100"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
         {
             "name": "DTW: Current File",
             "type": "debugpy",
