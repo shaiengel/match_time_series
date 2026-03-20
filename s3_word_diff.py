@@ -221,13 +221,18 @@ def plot_mode(csv_path, last=None):
     plt.show()
 
 
-def plot_bins_mode(csv_path, last=None):
+def plot_bins_mode(csv_path, last=None, date=None):
     """Read CSV and plot bin distributions — one line per date."""
     rows, _ = read_csv(csv_path)
     if not rows:
         print(f"No data in {csv_path}. Run --fetch first.")
         return
-    if last:
+    if date:
+        rows = [r for r in rows if r['Date'] == date]
+        if not rows:
+            print(f"No data for date {date} in {csv_path}.")
+            return
+    elif last:
         rows = rows[-last:]
 
     # Bin labels for x-axis
@@ -236,10 +241,13 @@ def plot_bins_mode(csv_path, last=None):
     fig, ax = plt.subplots(figsize=(14, 7))
     x = range(len(bin_labels))
 
+    single_date = len(rows) == 1
     for row in rows:
-        date = row['Date']
         bins = [int(b) for b in row['Bins'].split(';')]
-        ax.plot(x, bins, 'o-', label=date, markersize=4)
+        if single_date:
+            ax.bar(x, bins, color='steelblue', alpha=0.8, label=row['Date'])
+        else:
+            ax.plot(x, bins, 'o-', label=row['Date'], markersize=4)
 
     ax.set_xlabel('Word difference range')
     ax.set_ylabel('Number of files')
@@ -377,7 +385,7 @@ def main():
     elif args.plot:
         plot_mode(args.csv, last=args.last)
     elif args.plot_bins:
-        plot_bins_mode(args.csv, last=args.last)
+        plot_bins_mode(args.csv, last=args.last, date=args.date)
     elif args.date:
         session = boto3.Session(profile_name="portal")
         s3 = session.client("s3")

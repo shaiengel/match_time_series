@@ -104,6 +104,15 @@
             "cwd": "${workspaceFolder}"
         },
         {
+            "name": "S3 Word Diff Plot Bins Date",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/s3_word_diff.py",
+            "args": ["--plot-bins", "--date", "2026-03-19"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
             "name": "S3 Word Diff Date",
             "type": "debugpy",
             "request": "launch",
