@@ -108,7 +108,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
-            "args": ["--plot-bins", "--date", "2026-03-19"],
+            "args": ["--plot-bins", "--date", "2026-03-20"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
@@ -117,7 +117,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
-            "args": ["--date", "2026-03-02", "--plot-max", "100"],
+            "args": ["--date", "2026-03-20", "--plot-max", "10000"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
