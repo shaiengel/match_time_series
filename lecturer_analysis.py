@@ -101,13 +101,18 @@ def get_media_for_daf(conn, massechet_id, daf_id):
     return [(row[0], row[1], row[2], row[3], row[4]) for row in result]
 
 
-def plot_lecturers(from_date=None):
+def plot_lecturers(from_date=None, lecturer_id=None):
     data = load_existing_json()
     if not data:
         print("No lecturers.json found. Run build mode first.")
         return
 
     lecturers = data["lecturers"]
+    if lecturer_id:
+        if lecturer_id not in lecturers:
+            print(f"Lecturer id={lecturer_id} not found in lecturers.json")
+            return
+        lecturers = {lecturer_id: lecturers[lecturer_id]}
 
     all_dates = read_csv_dates()
     if from_date:
@@ -240,22 +245,22 @@ def stats():
         avg = lec.get("avg_word_diff")
 
         if last > prev:
-            increasing.append((desc, prev, valid[-2]["date"], last, valid[-1]["date"]))
+            increasing.append((mid, desc, prev, valid[-2]["date"], last, valid[-1]["date"]))
 
         if avg is not None and last > avg:
-            above_avg.append((desc, last, valid[-1]["date"], avg))
+            above_avg.append((mid, desc, last, valid[-1]["date"], avg))
 
     print(f"=== Lecturers where latest > previous ({len(increasing)}) ===")
-    print(f"{'Lecturer':<30} {'Previous':>10} {'Date':>12} {'Latest':>10} {'Date':>12}")
-    print("-" * 76)
-    for desc, prev, prev_date, last, last_date in sorted(increasing, key=lambda x: x[3], reverse=True):
-        print(f"{desc:<30} {prev:>10} {prev_date:>12} {last:>10} {last_date:>12}")
+    print(f"{'ID':<6} {'Lecturer':<30} {'Previous':>10} {'Date':>12} {'Latest':>10} {'Date':>12}")
+    print("-" * 82)
+    for mid, desc, prev, prev_date, last, last_date in sorted(increasing, key=lambda x: x[4], reverse=True):
+        print(f"{mid:<6} {desc:<30} {prev:>10} {prev_date:>12} {last:>10} {last_date:>12}")
 
     print(f"\n=== Lecturers where latest > average ({len(above_avg)}) ===")
-    print(f"{'Lecturer':<30} {'Latest':>10} {'Date':>12} {'Average':>10}")
-    print("-" * 64)
-    for desc, last, last_date, avg in sorted(above_avg, key=lambda x: x[1], reverse=True):
-        print(f"{desc:<30} {last:>10} {last_date:>12} {avg:>10}")
+    print(f"{'ID':<6} {'Lecturer':<30} {'Latest':>10} {'Date':>12} {'Average':>10}")
+    print("-" * 70)
+    for mid, desc, last, last_date, avg in sorted(above_avg, key=lambda x: x[2], reverse=True):
+        print(f"{mid:<6} {desc:<30} {last:>10} {last_date:>12} {avg:>10}")
 
 
 def main():
@@ -264,12 +269,13 @@ def main():
     parser.add_argument("--plot", action="store_true", help="Plot word diff per lecturer")
     parser.add_argument("--stats", action="store_true", help="Print lecturer statistics")
     parser.add_argument("--from-date", type=str, default=None, help="Start plot from this date (YYYY-MM-DD)")
+    parser.add_argument("--lecturer-id", type=str, default=None, help="Plot only a specific lecturer by maggid_id")
     args = parser.parse_args()
 
     if args.build:
         build()
     elif args.plot:
-        plot_lecturers(from_date=args.from_date)
+        plot_lecturers(from_date=args.from_date, lecturer_id=args.lecturer_id)
     elif args.stats:
         stats()
     else:

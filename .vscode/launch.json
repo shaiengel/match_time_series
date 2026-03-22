@@ -135,7 +135,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/lecturer_analysis.py",
-            "args": ["--plot", "--from-date", "2026-02-25"],
+            "args": ["--plot", "--from-date", "2026-02-25", "--lecturer-id", "47"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
