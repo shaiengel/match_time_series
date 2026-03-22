@@ -195,3 +195,67 @@ The `--target` value is used consistently across all detection methods:
 4. **CUSUM** (-50) — Cumulative sum of deviations from `target`. Triggers when cumsum < -50.
 
 **Note:** Methods return -1 when no degradation is detected.
+
+## Lecturer Performance Analysis
+
+`lecturer_analysis.py` — Analyzes transcription performance per lecturer (maggid shiur). Connects to the DB to map dates from `s3_word_diff.csv` to lecturers via calendar entries and View_Media. Fetches word count diffs from S3 for each lesson.
+
+### DB Connection
+
+Uses `.env` from `C:\portal\transcription\audio_manager\.env` (same as audio_manager). Connects to `vps_daf-yomi` MSSQL database via SQLAlchemy + pyodbc.
+
+### Commands
+
+```bash
+# Build/update lecturers.json (incremental — only processes new dates)
+uv run python lecturer_analysis.py --build
+
+# Plot word diff per lecturer
+uv run python lecturer_analysis.py --plot [--from-date YYYY-MM-DD]
+```
+
+### Build Mode (`--build`)
+
+1. Reads dates from `s3_word_diff.csv`
+2. Loads existing `lecturers.json` if present; skips already-processed dates via `latest_date`
+3. For each new date:
+   - Queries `Calendar` table for `MassechetId`/`DafId`
+   - Queries `View_Media` for lessons (filtered: `language_en = 'hebrew'`)
+   - Fetches `{media_id}.txt` and `{media_id}.pre-fix.time` from S3 bucket `portal-daf-yomi-fixed-text`
+   - Computes `abs(word_count_txt - word_count_prefix)` (timestamps stripped from pre-fix)
+4. Saves `lecturers.json` after each date (safe to interrupt and resume)
+
+### Output JSON Structure (`lecturers.json`)
+
+```json
+{
+  "latest_date": "2026-03-22",
+  "lecturers": {
+    "<maggid_id>": {
+      "description": "...",
+      "language": "hebrew",
+      "maggid_first_name": "...",
+      "maggid_last_name": "...",
+      "lessons": [
+        {"media_id": 12345, "date": "2026-02-17", "word_diff": 42},
+        {"media_id": 67890, "date": "2026-03-02", "word_diff": null}
+      ]
+    }
+  }
+}
+```
+
+- `lessons` sorted by date; `word_diff` is `null` if S3 files not found
+
+### Plot Mode (`--plot`)
+
+- One line per lecturer connecting `word_diff` values over time
+- `null` word_diff points are skipped (line continues to next valid point)
+- `--from-date` filters the x-axis to start from a given date
+- Output: `output/lecturers_word_diff.png`
+
+### Key DB Queries
+
+- **Lecturers:** `SELECT id, description, language FROM [daf-yom_sql-user].[maggid_shiur]`
+- **Calendar:** `SELECT DISTINCT MassechetId, DafId FROM [dbo].[Calendar] WHERE Date = :date`
+- **Lessons:** `SELECT media_id, maggid_id, language_en, maggid_first_name, maggid_last_name FROM [dbo].[View_Media] WHERE massechet_id = :mid AND daf_id = :did AND language_en = 'hebrew'`
