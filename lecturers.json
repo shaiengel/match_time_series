@@ -1,0 +1,2627 @@
+{
+  "latest_date": "2026-03-22",
+  "lecturers": {
+    "91": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "ת-שמואל נבון וידאו",
+      "maggid_last_name": "לאפליקציה  בלבד",
+      "lessons": [
+        {
+          "media_id": 152228,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152230,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152231,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152236,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 152241,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 152256,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152258,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152259,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152261,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "87": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "ת-אליהו אורנשטיין וידאו",
+      "maggid_last_name": "לאפליקציה בלבד",
+      "lessons": [
+        {
+          "media_id": 152365,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152367,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152368,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152373,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 152378,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 152393,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152395,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152396,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152398,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "86": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "ת-אליהו אורנשטיין שמע",
+      "maggid_last_name": "לאפליקציה בלבד",
+      "lessons": [
+        {
+          "media_id": 152473,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152475,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152476,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152481,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 152486,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 152501,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152503,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152504,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152506,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "114": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "מאיר שפרכר",
+      "maggid_last_name": "שמע לאלפליקציה בלבד",
+      "lessons": [
+        {
+          "media_id": 152797,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152799,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152800,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152805,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 152810,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 152825,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152827,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152828,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152830,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "113": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "מאיר שפרכר",
+      "maggid_last_name": "וידאו לאפליקציה בלבד",
+      "lessons": [
+        {
+          "media_id": 152905,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152907,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152908,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152913,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 152918,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 152933,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152935,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 152936,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 152938,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "89": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "ת-אביחי קצין וידאו",
+      "maggid_last_name": "לאפליקציה בלבד",
+      "lessons": [
+        {
+          "media_id": 153337,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153339,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 153340,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 153345,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 153350,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 153365,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153367,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 153368,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 153370,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "88": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "ת-אביחי קצין שמע",
+      "maggid_last_name": "לאפליקציה בלבד",
+      "lessons": [
+        {
+          "media_id": 153445,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153447,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 153448,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 153453,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 153458,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 153473,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153475,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 153476,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 153478,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "99": {
+      "description": "",
+      "language": "hebrew",
+      "maggid_first_name": "אברהם אהרון שמע",
+      "maggid_last_name": "לאפליקציה בלבד",
+      "lessons": [
+        {
+          "media_id": 154093,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 154095,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 154096,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 154101,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 154106,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 154121,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 154123,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 154124,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 154126,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "18": {
+      "description": "הרב ישראל מינץ",
+      "language": "hebrew",
+      "maggid_first_name": "ישראל",
+      "maggid_last_name": "מינץ",
+      "lessons": [
+        {
+          "media_id": 17662,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 17664,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 17665,
+          "date": "2026-02-20",
+          "word_diff": 30
+        },
+        {
+          "media_id": 17670,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 17675,
+          "date": "2026-03-02",
+          "word_diff": 138
+        },
+        {
+          "media_id": 17690,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 17692,
+          "date": "2026-03-19",
+          "word_diff": 35
+        },
+        {
+          "media_id": 17693,
+          "date": "2026-03-20",
+          "word_diff": 24
+        },
+        {
+          "media_id": 17695,
+          "date": "2026-03-22",
+          "word_diff": 55
+        }
+      ],
+      "avg_word_diff": 56.4
+    },
+    "24": {
+      "description": "הרב יהודה אליהו",
+      "language": "hebrew",
+      "maggid_first_name": "יהודה",
+      "maggid_last_name": "אליהו",
+      "lessons": [
+        {
+          "media_id": 59480,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 59482,
+          "date": "2026-02-19",
+          "word_diff": 218
+        },
+        {
+          "media_id": 59483,
+          "date": "2026-02-20",
+          "word_diff": 38
+        },
+        {
+          "media_id": 59488,
+          "date": "2026-02-25",
+          "word_diff": 5
+        },
+        {
+          "media_id": 59493,
+          "date": "2026-03-02",
+          "word_diff": 13
+        },
+        {
+          "media_id": 59508,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 59510,
+          "date": "2026-03-19",
+          "word_diff": 6
+        },
+        {
+          "media_id": 59511,
+          "date": "2026-03-20",
+          "word_diff": 3
+        },
+        {
+          "media_id": 59513,
+          "date": "2026-03-22",
+          "word_diff": 7
+        }
+      ],
+      "avg_word_diff": 41.4
+    },
+    "20": {
+      "description": "הרב חיים שמרלר",
+      "language": "hebrew",
+      "maggid_first_name": "חיים",
+      "maggid_last_name": "שמרלר",
+      "lessons": [
+        {
+          "media_id": 95948,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 95950,
+          "date": "2026-02-19",
+          "word_diff": 125
+        },
+        {
+          "media_id": 95951,
+          "date": "2026-02-20",
+          "word_diff": 66
+        },
+        {
+          "media_id": 95956,
+          "date": "2026-02-25",
+          "word_diff": 215
+        },
+        {
+          "media_id": 95961,
+          "date": "2026-03-02",
+          "word_diff": 28
+        },
+        {
+          "media_id": 95976,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 95978,
+          "date": "2026-03-19",
+          "word_diff": 0
+        },
+        {
+          "media_id": 95979,
+          "date": "2026-03-20",
+          "word_diff": 40
+        },
+        {
+          "media_id": 95981,
+          "date": "2026-03-22",
+          "word_diff": 53
+        }
+      ],
+      "avg_word_diff": 75.3
+    },
+    "37": {
+      "description": "הרב בנימין מילצקי",
+      "language": "hebrew",
+      "maggid_first_name": "בנימין",
+      "maggid_last_name": "מילצקי",
+      "lessons": [
+        {
+          "media_id": 151424,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151426,
+          "date": "2026-02-19",
+          "word_diff": 148
+        },
+        {
+          "media_id": 151427,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 151432,
+          "date": "2026-02-25",
+          "word_diff": 175
+        },
+        {
+          "media_id": 151437,
+          "date": "2026-03-02",
+          "word_diff": 19
+        },
+        {
+          "media_id": 151452,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151454,
+          "date": "2026-03-19",
+          "word_diff": 14
+        },
+        {
+          "media_id": 151455,
+          "date": "2026-03-20",
+          "word_diff": 9
+        },
+        {
+          "media_id": 151457,
+          "date": "2026-03-22",
+          "word_diff": 2
+        }
+      ],
+      "avg_word_diff": 61.2
+    },
+    "47": {
+      "description": "הרב עזרא שרם",
+      "language": "hebrew",
+      "maggid_first_name": "עזרא",
+      "maggid_last_name": "שרם",
+      "lessons": [
+        {
+          "media_id": 151547,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151549,
+          "date": "2026-02-19",
+          "word_diff": 12
+        },
+        {
+          "media_id": 151550,
+          "date": "2026-02-20",
+          "word_diff": 60
+        },
+        {
+          "media_id": 151555,
+          "date": "2026-02-25",
+          "word_diff": 43
+        },
+        {
+          "media_id": 151560,
+          "date": "2026-03-02",
+          "word_diff": 97
+        },
+        {
+          "media_id": 151575,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151577,
+          "date": "2026-03-19",
+          "word_diff": 31
+        },
+        {
+          "media_id": 151578,
+          "date": "2026-03-20",
+          "word_diff": 3
+        },
+        {
+          "media_id": 151580,
+          "date": "2026-03-22",
+          "word_diff": 14
+        }
+      ],
+      "avg_word_diff": 37.1
+    },
+    "43": {
+      "description": "הרב יחזקאל טשינגל",
+      "language": "hebrew",
+      "maggid_first_name": "יחזקאל",
+      "maggid_last_name": "טשינגל",
+      "lessons": [
+        {
+          "media_id": 151780,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151782,
+          "date": "2026-02-19",
+          "word_diff": 162
+        },
+        {
+          "media_id": 151783,
+          "date": "2026-02-20",
+          "word_diff": 4
+        },
+        {
+          "media_id": 151788,
+          "date": "2026-02-25",
+          "word_diff": 24
+        },
+        {
+          "media_id": 151793,
+          "date": "2026-03-02",
+          "word_diff": 106
+        },
+        {
+          "media_id": 151808,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151810,
+          "date": "2026-03-19",
+          "word_diff": 47
+        },
+        {
+          "media_id": 151811,
+          "date": "2026-03-20",
+          "word_diff": 111
+        },
+        {
+          "media_id": 151813,
+          "date": "2026-03-22",
+          "word_diff": 66
+        }
+      ],
+      "avg_word_diff": 74.3
+    },
+    "40": {
+      "description": "איתמר שטרן",
+      "language": "hebrew",
+      "maggid_first_name": "איתמר",
+      "maggid_last_name": "שטרן",
+      "lessons": [
+        {
+          "media_id": 151889,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151891,
+          "date": "2026-02-19",
+          "word_diff": 3
+        },
+        {
+          "media_id": 151892,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 151897,
+          "date": "2026-02-25",
+          "word_diff": 3
+        },
+        {
+          "media_id": 151902,
+          "date": "2026-03-02",
+          "word_diff": 2
+        },
+        {
+          "media_id": 151917,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 151919,
+          "date": "2026-03-19",
+          "word_diff": 6
+        },
+        {
+          "media_id": 151920,
+          "date": "2026-03-20",
+          "word_diff": 11
+        },
+        {
+          "media_id": 151922,
+          "date": "2026-03-22",
+          "word_diff": 1
+        }
+      ],
+      "avg_word_diff": 4.3
+    },
+    "76": {
+      "description": "הרב שמואל נבון",
+      "language": "hebrew",
+      "maggid_first_name": "שמואל",
+      "maggid_last_name": "נבון",
+      "lessons": [
+        {
+          "media_id": 152012,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152120,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152014,
+          "date": "2026-02-19",
+          "word_diff": 48
+        },
+        {
+          "media_id": 152122,
+          "date": "2026-02-19",
+          "word_diff": 37
+        },
+        {
+          "media_id": 152015,
+          "date": "2026-02-20",
+          "word_diff": 278
+        },
+        {
+          "media_id": 152123,
+          "date": "2026-02-20",
+          "word_diff": 9
+        },
+        {
+          "media_id": 152020,
+          "date": "2026-02-25",
+          "word_diff": 5
+        },
+        {
+          "media_id": 152128,
+          "date": "2026-02-25",
+          "word_diff": 14
+        },
+        {
+          "media_id": 152025,
+          "date": "2026-03-02",
+          "word_diff": 35
+        },
+        {
+          "media_id": 152133,
+          "date": "2026-03-02",
+          "word_diff": 19
+        },
+        {
+          "media_id": 152040,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152148,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152042,
+          "date": "2026-03-19",
+          "word_diff": 76
+        },
+        {
+          "media_id": 152150,
+          "date": "2026-03-19",
+          "word_diff": 90
+        },
+        {
+          "media_id": 152043,
+          "date": "2026-03-20",
+          "word_diff": 12
+        },
+        {
+          "media_id": 152151,
+          "date": "2026-03-20",
+          "word_diff": 6
+        },
+        {
+          "media_id": 152045,
+          "date": "2026-03-22",
+          "word_diff": 10
+        },
+        {
+          "media_id": 152153,
+          "date": "2026-03-22",
+          "word_diff": 0
+        }
+      ],
+      "avg_word_diff": 45.6
+    },
+    "42": {
+      "description": "הרב אליהו אורנשטיין",
+      "language": "hebrew",
+      "maggid_first_name": "אליהו",
+      "maggid_last_name": "אורנשטיין",
+      "lessons": [
+        {
+          "media_id": 152581,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152689,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152583,
+          "date": "2026-02-19",
+          "word_diff": 3
+        },
+        {
+          "media_id": 152691,
+          "date": "2026-02-19",
+          "word_diff": 62
+        },
+        {
+          "media_id": 152584,
+          "date": "2026-02-20",
+          "word_diff": 5
+        },
+        {
+          "media_id": 152692,
+          "date": "2026-02-20",
+          "word_diff": 19
+        },
+        {
+          "media_id": 152589,
+          "date": "2026-02-25",
+          "word_diff": 43
+        },
+        {
+          "media_id": 152697,
+          "date": "2026-02-25",
+          "word_diff": 77
+        },
+        {
+          "media_id": 152594,
+          "date": "2026-03-02",
+          "word_diff": 17
+        },
+        {
+          "media_id": 152702,
+          "date": "2026-03-02",
+          "word_diff": 2
+        },
+        {
+          "media_id": 152609,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152717,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 152611,
+          "date": "2026-03-19",
+          "word_diff": 101
+        },
+        {
+          "media_id": 152719,
+          "date": "2026-03-19",
+          "word_diff": 56
+        },
+        {
+          "media_id": 152612,
+          "date": "2026-03-20",
+          "word_diff": 2
+        },
+        {
+          "media_id": 152720,
+          "date": "2026-03-20",
+          "word_diff": 27
+        },
+        {
+          "media_id": 152614,
+          "date": "2026-03-22",
+          "word_diff": 3
+        },
+        {
+          "media_id": 152722,
+          "date": "2026-03-22",
+          "word_diff": 11
+        }
+      ],
+      "avg_word_diff": 30.6
+    },
+    "110": {
+      "description": "הרב מאיר שפרכר",
+      "language": "hebrew",
+      "maggid_first_name": "מאיר",
+      "maggid_last_name": "שפרכר",
+      "lessons": [
+        {
+          "media_id": 153013,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153121,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153015,
+          "date": "2026-02-19",
+          "word_diff": 149
+        },
+        {
+          "media_id": 153123,
+          "date": "2026-02-19",
+          "word_diff": 51
+        },
+        {
+          "media_id": 153016,
+          "date": "2026-02-20",
+          "word_diff": 22
+        },
+        {
+          "media_id": 153124,
+          "date": "2026-02-20",
+          "word_diff": 16
+        },
+        {
+          "media_id": 153021,
+          "date": "2026-02-25",
+          "word_diff": 97
+        },
+        {
+          "media_id": 153129,
+          "date": "2026-02-25",
+          "word_diff": 32
+        },
+        {
+          "media_id": 153026,
+          "date": "2026-03-02",
+          "word_diff": 122
+        },
+        {
+          "media_id": 153134,
+          "date": "2026-03-02",
+          "word_diff": 103
+        },
+        {
+          "media_id": 153041,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153149,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153043,
+          "date": "2026-03-19",
+          "word_diff": 26
+        },
+        {
+          "media_id": 153151,
+          "date": "2026-03-19",
+          "word_diff": 48
+        },
+        {
+          "media_id": 153044,
+          "date": "2026-03-20",
+          "word_diff": 9
+        },
+        {
+          "media_id": 153152,
+          "date": "2026-03-20",
+          "word_diff": 19
+        },
+        {
+          "media_id": 153046,
+          "date": "2026-03-22",
+          "word_diff": 24
+        },
+        {
+          "media_id": 153154,
+          "date": "2026-03-22",
+          "word_diff": 7
+        }
+      ],
+      "avg_word_diff": 51.8
+    },
+    "69": {
+      "description": "הרב אביחי קצין",
+      "language": "hebrew",
+      "maggid_first_name": "אביחי",
+      "maggid_last_name": "קצין",
+      "lessons": [
+        {
+          "media_id": 153661,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153769,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153663,
+          "date": "2026-02-19",
+          "word_diff": 90
+        },
+        {
+          "media_id": 153771,
+          "date": "2026-02-19",
+          "word_diff": 41
+        },
+        {
+          "media_id": 153664,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 153772,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 153669,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 153777,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 153674,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 153782,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 153689,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153797,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153691,
+          "date": "2026-03-19",
+          "word_diff": 4
+        },
+        {
+          "media_id": 153799,
+          "date": "2026-03-19",
+          "word_diff": 5
+        },
+        {
+          "media_id": 153692,
+          "date": "2026-03-20",
+          "word_diff": 5
+        },
+        {
+          "media_id": 153800,
+          "date": "2026-03-20",
+          "word_diff": 1
+        },
+        {
+          "media_id": 153694,
+          "date": "2026-03-22",
+          "word_diff": 5
+        },
+        {
+          "media_id": 153802,
+          "date": "2026-03-22",
+          "word_diff": 0
+        }
+      ],
+      "avg_word_diff": 18.9
+    },
+    "105": {
+      "description": "הרב יוסף אלנקווה",
+      "language": "hebrew",
+      "maggid_first_name": "יוסף",
+      "maggid_last_name": "אלנקווה",
+      "lessons": [
+        {
+          "media_id": 153877,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153879,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 153880,
+          "date": "2026-02-20",
+          "word_diff": 10
+        },
+        {
+          "media_id": 153885,
+          "date": "2026-02-25",
+          "word_diff": 16
+        },
+        {
+          "media_id": 153890,
+          "date": "2026-03-02",
+          "word_diff": 34
+        },
+        {
+          "media_id": 153905,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153907,
+          "date": "2026-03-19",
+          "word_diff": 51
+        },
+        {
+          "media_id": 153908,
+          "date": "2026-03-20",
+          "word_diff": 30
+        },
+        {
+          "media_id": 153910,
+          "date": "2026-03-22",
+          "word_diff": 22
+        }
+      ],
+      "avg_word_diff": 27.2
+    },
+    "98": {
+      "description": "הרב פנחס אקרב",
+      "language": "hebrew",
+      "maggid_first_name": "פנחס יוסף",
+      "maggid_last_name": "אקרב",
+      "lessons": [
+        {
+          "media_id": 153985,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 153987,
+          "date": "2026-02-19",
+          "word_diff": 73
+        },
+        {
+          "media_id": 153988,
+          "date": "2026-02-20",
+          "word_diff": 6
+        },
+        {
+          "media_id": 153993,
+          "date": "2026-02-25",
+          "word_diff": 64
+        },
+        {
+          "media_id": 153998,
+          "date": "2026-03-02",
+          "word_diff": 137
+        },
+        {
+          "media_id": 154013,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 154015,
+          "date": "2026-03-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 154016,
+          "date": "2026-03-20",
+          "word_diff": 0
+        },
+        {
+          "media_id": 154018,
+          "date": "2026-03-22",
+          "word_diff": 29
+        }
+      ],
+      "avg_word_diff": 44.4
+    },
+    "16": {
+      "description": "הרב אברהם אהרון",
+      "language": "hebrew",
+      "maggid_first_name": "אברהם",
+      "maggid_last_name": "אהרון",
+      "lessons": [
+        {
+          "media_id": 154201,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 154203,
+          "date": "2026-02-19",
+          "word_diff": 140
+        },
+        {
+          "media_id": 154204,
+          "date": "2026-02-20",
+          "word_diff": 157
+        },
+        {
+          "media_id": 154209,
+          "date": "2026-02-25",
+          "word_diff": 103
+        },
+        {
+          "media_id": 154214,
+          "date": "2026-03-02",
+          "word_diff": 38
+        },
+        {
+          "media_id": 154229,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 154231,
+          "date": "2026-03-19",
+          "word_diff": 14
+        },
+        {
+          "media_id": 154232,
+          "date": "2026-03-20",
+          "word_diff": 28
+        },
+        {
+          "media_id": 154234,
+          "date": "2026-03-22",
+          "word_diff": 15
+        }
+      ],
+      "avg_word_diff": 70.7
+    },
+    "15": {
+      "description": "הרב דוד קלופפר",
+      "language": "hebrew",
+      "maggid_first_name": "דוד",
+      "maggid_last_name": "קלופפר",
+      "lessons": [
+        {
+          "media_id": 154543,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 154545,
+          "date": "2026-02-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 154546,
+          "date": "2026-02-20",
+          "word_diff": 9
+        },
+        {
+          "media_id": 154551,
+          "date": "2026-02-25",
+          "word_diff": 35
+        },
+        {
+          "media_id": 154556,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 154571,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 154573,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 154574,
+          "date": "2026-03-20",
+          "word_diff": 8
+        },
+        {
+          "media_id": 154576,
+          "date": "2026-03-22",
+          "word_diff": 0
+        }
+      ],
+      "avg_word_diff": 10.8
+    },
+    "82": {
+      "description": "רדיו מורשת",
+      "language": "hebrew",
+      "maggid_first_name": "",
+      "maggid_last_name": "רדיו מורשת",
+      "lessons": [
+        {
+          "media_id": 155536,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 155538,
+          "date": "2026-02-19",
+          "word_diff": 565
+        },
+        {
+          "media_id": 155539,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 155543,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 155560,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 155562,
+          "date": "2026-03-19",
+          "word_diff": 3
+        },
+        {
+          "media_id": 155563,
+          "date": "2026-03-20",
+          "word_diff": 1
+        },
+        {
+          "media_id": 155565,
+          "date": "2026-03-22",
+          "word_diff": 4
+        }
+      ],
+      "avg_word_diff": 143.2
+    },
+    "50": {
+      "description": "הרב נפתלי וסרמן",
+      "language": "hebrew",
+      "maggid_first_name": "נפתלי",
+      "maggid_last_name": "וסרמן",
+      "lessons": [
+        {
+          "media_id": 156915,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 156917,
+          "date": "2026-02-19",
+          "word_diff": 415
+        },
+        {
+          "media_id": 156918,
+          "date": "2026-02-20",
+          "word_diff": 213
+        },
+        {
+          "media_id": 156923,
+          "date": "2026-02-25",
+          "word_diff": 7
+        },
+        {
+          "media_id": 156928,
+          "date": "2026-03-02",
+          "word_diff": 229
+        },
+        {
+          "media_id": 156943,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 156945,
+          "date": "2026-03-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 156946,
+          "date": "2026-03-20",
+          "word_diff": 5
+        },
+        {
+          "media_id": 156948,
+          "date": "2026-03-22",
+          "word_diff": 3
+        }
+      ],
+      "avg_word_diff": 124.9
+    },
+    "96": {
+      "description": "הרב יהונתן ברגר",
+      "language": "hebrew",
+      "maggid_first_name": "יהונתן",
+      "maggid_last_name": "ברגר",
+      "lessons": [
+        {
+          "media_id": 303272,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303274,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 303275,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 303280,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 303285,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 303300,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303302,
+          "date": "2026-03-19",
+          "word_diff": 21
+        },
+        {
+          "media_id": 303303,
+          "date": "2026-03-20",
+          "word_diff": 15
+        },
+        {
+          "media_id": 303305,
+          "date": "2026-03-22",
+          "word_diff": 1
+        }
+      ],
+      "avg_word_diff": 12.3
+    },
+    "129": {
+      "description": "\"הדף בעיון\"",
+      "language": "hebrew",
+      "maggid_first_name": "",
+      "maggid_last_name": "\"הדף בעיון\"",
+      "lessons": [
+        {
+          "media_id": 303550,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303552,
+          "date": "2026-02-19",
+          "word_diff": 16
+        },
+        {
+          "media_id": 303553,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 303558,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 303563,
+          "date": "2026-03-02",
+          "word_diff": 51
+        },
+        {
+          "media_id": 303578,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303580,
+          "date": "2026-03-19",
+          "word_diff": 131
+        },
+        {
+          "media_id": 303581,
+          "date": "2026-03-20",
+          "word_diff": 93
+        },
+        {
+          "media_id": 303583,
+          "date": "2026-03-22",
+          "word_diff": 52
+        }
+      ],
+      "avg_word_diff": 68.6
+    },
+    "161": {
+      "description": "הרב מאור דוד כהן",
+      "language": "hebrew",
+      "maggid_first_name": "מאור דוד",
+      "maggid_last_name": "כהן",
+      "lessons": [
+        {
+          "media_id": 303771,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303773,
+          "date": "2026-02-19",
+          "word_diff": 8
+        },
+        {
+          "media_id": 303774,
+          "date": "2026-02-20",
+          "word_diff": 18
+        },
+        {
+          "media_id": 303779,
+          "date": "2026-02-25",
+          "word_diff": 15
+        },
+        {
+          "media_id": 303784,
+          "date": "2026-03-02",
+          "word_diff": 42
+        },
+        {
+          "media_id": 303799,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303801,
+          "date": "2026-03-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 303802,
+          "date": "2026-03-20",
+          "word_diff": 9
+        },
+        {
+          "media_id": 303804,
+          "date": "2026-03-22",
+          "word_diff": 3
+        }
+      ],
+      "avg_word_diff": 13.9
+    },
+    "172": {
+      "description": "הרב דוב מילר",
+      "language": "hebrew",
+      "maggid_first_name": "דוב",
+      "maggid_last_name": "מילר",
+      "lessons": [
+        {
+          "media_id": 303880,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303882,
+          "date": "2026-02-19",
+          "word_diff": 220
+        },
+        {
+          "media_id": 303883,
+          "date": "2026-02-20",
+          "word_diff": 255
+        },
+        {
+          "media_id": 303888,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 303893,
+          "date": "2026-03-02",
+          "word_diff": 81
+        },
+        {
+          "media_id": 303908,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 303910,
+          "date": "2026-03-19",
+          "word_diff": 5
+        },
+        {
+          "media_id": 303911,
+          "date": "2026-03-20",
+          "word_diff": 60
+        },
+        {
+          "media_id": 303913,
+          "date": "2026-03-22",
+          "word_diff": 3
+        }
+      ],
+      "avg_word_diff": 104.0
+    },
+    "179": {
+      "description": "הרב שאול יונתן וינגורט",
+      "language": "hebrew",
+      "maggid_first_name": "שאול יונתן",
+      "maggid_last_name": "וינגורט",
+      "lessons": [
+        {
+          "media_id": 304019,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304021,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 304022,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 304027,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 304032,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 304047,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304049,
+          "date": "2026-03-19",
+          "word_diff": 43
+        },
+        {
+          "media_id": 304050,
+          "date": "2026-03-20",
+          "word_diff": 4
+        },
+        {
+          "media_id": 304052,
+          "date": "2026-03-22",
+          "word_diff": 53
+        }
+      ],
+      "avg_word_diff": 33.3
+    },
+    "185": {
+      "description": "הרב זיסמן",
+      "language": "hebrew",
+      "maggid_first_name": "",
+      "maggid_last_name": "זיסמן",
+      "lessons": [
+        {
+          "media_id": 304376,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304378,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 304379,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 304384,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 304389,
+          "date": "2026-03-02",
+          "word_diff": 13
+        },
+        {
+          "media_id": 304404,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304406,
+          "date": "2026-03-19",
+          "word_diff": 14
+        },
+        {
+          "media_id": 304407,
+          "date": "2026-03-20",
+          "word_diff": 14
+        },
+        {
+          "media_id": 304409,
+          "date": "2026-03-22",
+          "word_diff": 17
+        }
+      ],
+      "avg_word_diff": 14.5
+    },
+    "123": {
+      "description": "הרב אפרים סגל",
+      "language": "hebrew",
+      "maggid_first_name": "אפרים",
+      "maggid_last_name": "סגל",
+      "lessons": [
+        {
+          "media_id": 304812,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304920,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304814,
+          "date": "2026-02-19",
+          "word_diff": 50
+        },
+        {
+          "media_id": 304922,
+          "date": "2026-02-19",
+          "word_diff": 51
+        },
+        {
+          "media_id": 304815,
+          "date": "2026-02-20",
+          "word_diff": 16
+        },
+        {
+          "media_id": 304923,
+          "date": "2026-02-20",
+          "word_diff": 9
+        },
+        {
+          "media_id": 304820,
+          "date": "2026-02-25",
+          "word_diff": 63
+        },
+        {
+          "media_id": 304928,
+          "date": "2026-02-25",
+          "word_diff": 82
+        },
+        {
+          "media_id": 304825,
+          "date": "2026-03-02",
+          "word_diff": 59
+        },
+        {
+          "media_id": 304933,
+          "date": "2026-03-02",
+          "word_diff": 139
+        },
+        {
+          "media_id": 304840,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304948,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 304842,
+          "date": "2026-03-19",
+          "word_diff": 75
+        },
+        {
+          "media_id": 304950,
+          "date": "2026-03-19",
+          "word_diff": 54
+        },
+        {
+          "media_id": 304843,
+          "date": "2026-03-20",
+          "word_diff": 5
+        },
+        {
+          "media_id": 304951,
+          "date": "2026-03-20",
+          "word_diff": 16
+        },
+        {
+          "media_id": 304845,
+          "date": "2026-03-22",
+          "word_diff": 50
+        },
+        {
+          "media_id": 304953,
+          "date": "2026-03-22",
+          "word_diff": 55
+        }
+      ],
+      "avg_word_diff": 51.7
+    },
+    "160": {
+      "description": "הגמרא הדיגיטלית, הרב קובלסקי",
+      "language": "hebrew",
+      "maggid_first_name": "",
+      "maggid_last_name": "הגמרא הדיגיטלית",
+      "lessons": [
+        {
+          "media_id": 305245,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305247,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 305248,
+          "date": "2026-02-20",
+          "word_diff": 1
+        },
+        {
+          "media_id": 305253,
+          "date": "2026-02-25",
+          "word_diff": 1
+        },
+        {
+          "media_id": 305258,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 305273,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305275,
+          "date": "2026-03-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 305276,
+          "date": "2026-03-20",
+          "word_diff": 1
+        },
+        {
+          "media_id": 305278,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": 1.2
+    },
+    "152": {
+      "description": "הרב מיכאל קמין",
+      "language": "hebrew",
+      "maggid_first_name": "מיכאל",
+      "maggid_last_name": "קמין",
+      "lessons": [
+        {
+          "media_id": 305353,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305355,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 305356,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 305361,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 305366,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 305381,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305383,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 305384,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 305386,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "164": {
+      "description": "הרב ישראל כהן",
+      "language": "hebrew",
+      "maggid_first_name": "ישראל",
+      "maggid_last_name": "כהן",
+      "lessons": [
+        {
+          "media_id": 305461,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305569,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305463,
+          "date": "2026-02-19",
+          "word_diff": 1
+        },
+        {
+          "media_id": 305571,
+          "date": "2026-02-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 305464,
+          "date": "2026-02-20",
+          "word_diff": 2
+        },
+        {
+          "media_id": 305572,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 305469,
+          "date": "2026-02-25",
+          "word_diff": 1
+        },
+        {
+          "media_id": 305577,
+          "date": "2026-02-25",
+          "word_diff": 1
+        },
+        {
+          "media_id": 305474,
+          "date": "2026-03-02",
+          "word_diff": 3
+        },
+        {
+          "media_id": 305582,
+          "date": "2026-03-02",
+          "word_diff": 3
+        },
+        {
+          "media_id": 305489,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305597,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 305491,
+          "date": "2026-03-19",
+          "word_diff": 5
+        },
+        {
+          "media_id": 305599,
+          "date": "2026-03-19",
+          "word_diff": 5
+        },
+        {
+          "media_id": 305492,
+          "date": "2026-03-20",
+          "word_diff": 0
+        },
+        {
+          "media_id": 305600,
+          "date": "2026-03-20",
+          "word_diff": 0
+        },
+        {
+          "media_id": 305494,
+          "date": "2026-03-22",
+          "word_diff": 2
+        },
+        {
+          "media_id": 305602,
+          "date": "2026-03-22",
+          "word_diff": 0
+        }
+      ],
+      "avg_word_diff": 1.9
+    },
+    "184": {
+      "description": "הרב אלי סטפנסקי",
+      "language": "hebrew",
+      "maggid_first_name": "אלי",
+      "maggid_last_name": "סטפנסקי",
+      "lessons": [
+        {
+          "media_id": 306001,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306003,
+          "date": "2026-02-19",
+          "word_diff": 17
+        },
+        {
+          "media_id": 306004,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 306009,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 306014,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 306029,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306031,
+          "date": "2026-03-19",
+          "word_diff": 98
+        },
+        {
+          "media_id": 306032,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 306034,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": 57.5
+    },
+    "162": {
+      "description": "הרב ידידיה דהן",
+      "language": "hebrew",
+      "maggid_first_name": "ידידיה",
+      "maggid_last_name": "דהן",
+      "lessons": [
+        {
+          "media_id": 306217,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306219,
+          "date": "2026-02-19",
+          "word_diff": 1
+        },
+        {
+          "media_id": 306220,
+          "date": "2026-02-20",
+          "word_diff": 33
+        },
+        {
+          "media_id": 306225,
+          "date": "2026-02-25",
+          "word_diff": 64
+        },
+        {
+          "media_id": 306230,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 306245,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306247,
+          "date": "2026-03-19",
+          "word_diff": 7
+        },
+        {
+          "media_id": 306248,
+          "date": "2026-03-20",
+          "word_diff": 28
+        },
+        {
+          "media_id": 306250,
+          "date": "2026-03-22",
+          "word_diff": 2
+        }
+      ],
+      "avg_word_diff": 22.5
+    },
+    "182": {
+      "description": "נפתלי רמתי",
+      "language": "hebrew",
+      "maggid_first_name": "נפתלי",
+      "maggid_last_name": "רמתי",
+      "lessons": [
+        {
+          "media_id": 306433,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306435,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 306436,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 306441,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 306446,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 306461,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306463,
+          "date": "2026-03-19",
+          "word_diff": 0
+        },
+        {
+          "media_id": 306464,
+          "date": "2026-03-20",
+          "word_diff": 0
+        },
+        {
+          "media_id": 306466,
+          "date": "2026-03-22",
+          "word_diff": 2
+        }
+      ],
+      "avg_word_diff": 0.7
+    },
+    "155": {
+      "description": "הרב מצליח חי מאזוז",
+      "language": "hebrew",
+      "maggid_first_name": "",
+      "maggid_last_name": "מצליח חי מאזוז",
+      "lessons": [
+        {
+          "media_id": 306865,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306973,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306867,
+          "date": "2026-02-19",
+          "word_diff": 33
+        },
+        {
+          "media_id": 306975,
+          "date": "2026-02-19",
+          "word_diff": 30
+        },
+        {
+          "media_id": 306868,
+          "date": "2026-02-20",
+          "word_diff": 88
+        },
+        {
+          "media_id": 306976,
+          "date": "2026-02-20",
+          "word_diff": 7
+        },
+        {
+          "media_id": 306873,
+          "date": "2026-02-25",
+          "word_diff": 2
+        },
+        {
+          "media_id": 306981,
+          "date": "2026-02-25",
+          "word_diff": 40
+        },
+        {
+          "media_id": 306878,
+          "date": "2026-03-02",
+          "word_diff": 42
+        },
+        {
+          "media_id": 306986,
+          "date": "2026-03-02",
+          "word_diff": 1
+        },
+        {
+          "media_id": 306893,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307001,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 306895,
+          "date": "2026-03-19",
+          "word_diff": 17
+        },
+        {
+          "media_id": 307003,
+          "date": "2026-03-19",
+          "word_diff": 47
+        },
+        {
+          "media_id": 306896,
+          "date": "2026-03-20",
+          "word_diff": 39
+        },
+        {
+          "media_id": 307004,
+          "date": "2026-03-20",
+          "word_diff": 51
+        },
+        {
+          "media_id": 306898,
+          "date": "2026-03-22",
+          "word_diff": 27
+        },
+        {
+          "media_id": 307006,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": 32.6
+    },
+    "134": {
+      "description": "הרב בועז שלום",
+      "language": "hebrew",
+      "maggid_first_name": "בועז",
+      "maggid_last_name": "שלום",
+      "lessons": [
+        {
+          "media_id": 307191,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307193,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 307194,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 307199,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 307204,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 307219,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307221,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 307222,
+          "date": "2026-03-20",
+          "word_diff": 5
+        },
+        {
+          "media_id": 307224,
+          "date": "2026-03-22",
+          "word_diff": 20
+        }
+      ],
+      "avg_word_diff": 12.5
+    },
+    "163": {
+      "description": "הרב יחזקאל הרטמן",
+      "language": "hebrew",
+      "maggid_first_name": "יחזקאל",
+      "maggid_last_name": "הרטמן",
+      "lessons": [
+        {
+          "media_id": 307517,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307519,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 307520,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 307525,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 307530,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 307545,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307547,
+          "date": "2026-03-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 307548,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 307550,
+          "date": "2026-03-22",
+          "word_diff": null
+        }
+      ],
+      "avg_word_diff": null
+    },
+    "17": {
+      "description": "הרב אורי בריליאנט",
+      "language": "hebrew",
+      "maggid_first_name": "אורי",
+      "maggid_last_name": "בריליאנט",
+      "lessons": [
+        {
+          "media_id": 307869,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307871,
+          "date": "2026-02-19",
+          "word_diff": null
+        },
+        {
+          "media_id": 307872,
+          "date": "2026-02-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 307877,
+          "date": "2026-02-25",
+          "word_diff": null
+        },
+        {
+          "media_id": 307882,
+          "date": "2026-03-02",
+          "word_diff": null
+        },
+        {
+          "media_id": 307897,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307899,
+          "date": "2026-03-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 307900,
+          "date": "2026-03-20",
+          "word_diff": null
+        },
+        {
+          "media_id": 307902,
+          "date": "2026-03-22",
+          "word_diff": 1
+        }
+      ],
+      "avg_word_diff": 1.5
+    },
+    "178": {
+      "description": "כאן מורשת, פניני הדף",
+      "language": "hebrew",
+      "maggid_first_name": "",
+      "maggid_last_name": "כאן מורשת",
+      "lessons": [
+        {
+          "media_id": 307956,
+          "date": "2026-02-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307955,
+          "date": "2026-02-19",
+          "word_diff": 3
+        },
+        {
+          "media_id": 307963,
+          "date": "2026-02-25",
+          "word_diff": 2
+        },
+        {
+          "media_id": 307964,
+          "date": "2026-03-02",
+          "word_diff": 4
+        },
+        {
+          "media_id": 307979,
+          "date": "2026-03-17",
+          "word_diff": null
+        },
+        {
+          "media_id": 307978,
+          "date": "2026-03-19",
+          "word_diff": 2
+        },
+        {
+          "media_id": 307983,
+          "date": "2026-03-22",
+          "word_diff": 0
+        }
+      ],
+      "avg_word_diff": 2.2
+    }
+  }
+}
