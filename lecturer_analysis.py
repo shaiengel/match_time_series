@@ -145,7 +145,7 @@ def plot_lecturers(from_date=None, lecturer_id=None):
     plt.show()
 
 
-def build():
+def build(force_date=None):
     all_dates = read_csv_dates()
     existing = load_existing_json()
 
@@ -156,6 +156,15 @@ def build():
     else:
         new_dates = all_dates
         lecturers = {}
+
+    if force_date:
+        if force_date not in new_dates:
+            new_dates.append(force_date)
+            new_dates.sort()
+        # Remove existing lessons for this date so they get re-fetched
+        for lec in lecturers.values():
+            lec["lessons"] = [l for l in lec["lessons"] if l.get("date") != force_date]
+        print(f"Forcing re-fetch of {force_date}")
 
     if not new_dates:
         print(f"No new dates. Already up to date (latest: {existing.get('latest_date', 'N/A')}).")
@@ -266,6 +275,7 @@ def stats():
 def main():
     parser = argparse.ArgumentParser(description="Lecturer performance analysis")
     parser.add_argument("--build", action="store_true", help="Build/update lecturers.json from DB + S3")
+    parser.add_argument("--date", type=str, default=None, help="Re-fetch a specific date (YYYY-MM-DD), even if already in lecturers.json")
     parser.add_argument("--plot", action="store_true", help="Plot word diff per lecturer")
     parser.add_argument("--stats", action="store_true", help="Print lecturer statistics")
     parser.add_argument("--from-date", type=str, default=None, help="Start plot from this date (YYYY-MM-DD)")
@@ -273,7 +283,7 @@ def main():
     args = parser.parse_args()
 
     if args.build:
-        build()
+        build(force_date=args.date)
     elif args.plot:
         plot_lecturers(from_date=args.from_date, lecturer_id=args.lecturer_id)
     elif args.stats:

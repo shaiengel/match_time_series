@@ -1,5 +1,5 @@
 {
-  "latest_date": "2026-03-24",
+  "latest_date": "2026-03-25",
   "lecturers": {
     "91": {
       "description": "",
@@ -55,6 +55,11 @@
         {
           "media_id": 152263,
           "date": "2026-03-24",
+          "word_diff": null
+        },
+        {
+          "media_id": 152264,
+          "date": "2026-03-25",
           "word_diff": null
         }
       ],
@@ -115,6 +120,11 @@
           "media_id": 152400,
           "date": "2026-03-24",
           "word_diff": null
+        },
+        {
+          "media_id": 152401,
+          "date": "2026-03-25",
+          "word_diff": null
         }
       ],
       "avg_word_diff": null
@@ -173,6 +183,11 @@
         {
           "media_id": 152508,
           "date": "2026-03-24",
+          "word_diff": null
+        },
+        {
+          "media_id": 152509,
+          "date": "2026-03-25",
           "word_diff": null
         }
       ],
@@ -233,6 +248,11 @@
           "media_id": 152832,
           "date": "2026-03-24",
           "word_diff": null
+        },
+        {
+          "media_id": 152833,
+          "date": "2026-03-25",
+          "word_diff": null
         }
       ],
       "avg_word_diff": null
@@ -291,6 +311,11 @@
         {
           "media_id": 152940,
           "date": "2026-03-24",
+          "word_diff": null
+        },
+        {
+          "media_id": 152941,
+          "date": "2026-03-25",
           "word_diff": null
         }
       ],
@@ -351,6 +376,11 @@
           "media_id": 153372,
           "date": "2026-03-24",
           "word_diff": null
+        },
+        {
+          "media_id": 153373,
+          "date": "2026-03-25",
+          "word_diff": null
         }
       ],
       "avg_word_diff": null
@@ -409,6 +439,11 @@
         {
           "media_id": 153480,
           "date": "2026-03-24",
+          "word_diff": null
+        },
+        {
+          "media_id": 153481,
+          "date": "2026-03-25",
           "word_diff": null
         }
       ],
@@ -469,6 +504,11 @@
           "media_id": 154128,
           "date": "2026-03-24",
           "word_diff": null
+        },
+        {
+          "media_id": 154129,
+          "date": "2026-03-25",
+          "word_diff": null
         }
       ],
       "avg_word_diff": null
@@ -528,9 +568,14 @@
           "media_id": 17697,
           "date": "2026-03-24",
           "word_diff": 14
+        },
+        {
+          "media_id": 17698,
+          "date": "2026-03-25",
+          "word_diff": 10
         }
       ],
-      "avg_word_diff": 49.3
+      "avg_word_diff": 43.7
     },
     "24": {
       "description": "הרב יהודה אליהו",
@@ -587,9 +632,14 @@
           "media_id": 59515,
           "date": "2026-03-24",
           "word_diff": 8
+        },
+        {
+          "media_id": 59516,
+          "date": "2026-03-25",
+          "word_diff": 2
         }
       ],
-      "avg_word_diff": 37.2
+      "avg_word_diff": 33.3
     },
     "20": {
       "description": "הרב חיים שמרלר",
@@ -646,9 +696,14 @@
           "media_id": 95983,
           "date": "2026-03-24",
           "word_diff": 44
+        },
+        {
+          "media_id": 95984,
+          "date": "2026-03-25",
+          "word_diff": 90
         }
       ],
-      "avg_word_diff": 71.4
+      "avg_word_diff": 73.4
     },
     "37": {
       "description": "הרב בנימין מילצקי",
@@ -705,9 +760,14 @@
           "media_id": 151459,
           "date": "2026-03-24",
           "word_diff": 12
+        },
+        {
+          "media_id": 151460,
+          "date": "2026-03-25",
+          "word_diff": 11
         }
       ],
-      "avg_word_diff": 54.1
+      "avg_word_diff": 48.8
     },
     "47": {
       "description": "הרב עזרא שרם",
@@ -764,9 +824,14 @@
           "media_id": 151582,
           "date": "2026-03-24",
           "word_diff": 35
+        },
+        {
+          "media_id": 151583,
+          "date": "2026-03-25",
+          "word_diff": 2
         }
       ],
-      "avg_word_diff": 36.9
+      "avg_word_diff": 33.0
     },
     "43": {
       "description": "הרב יחזקאל טשינגל",
@@ -823,9 +888,14 @@
           "media_id": 151815,
           "date": "2026-03-24",
           "word_diff": 175
+        },
+        {
+          "media_id": 151816,
+          "date": "2026-03-25",
+          "word_diff": 128
         }
       ],
-      "avg_word_diff": 86.9
+      "avg_word_diff": 91.4
     },
     "40": {
       "description": "איתמר שטרן",
@@ -882,9 +952,14 @@
           "media_id": 151924,
           "date": "2026-03-24",
           "word_diff": 0
+        },
+        {
+          "media_id": 151925,
+          "date": "2026-03-25",
+          "word_diff": 1
         }
       ],
-      "avg_word_diff": 3.7
+      "avg_word_diff": 3.4
     },
     "76": {
       "description": "הרב שמואל נבון",
@@ -991,9 +1066,19 @@
           "media_id": 152155,
           "date": "2026-03-24",
           "word_diff": 0
+        },
+        {
+          "media_id": 152048,
+          "date": "2026-03-25",
+          "word_diff": 23
+        },
+        {
+          "media_id": 152156,
+          "date": "2026-03-25",
+          "word_diff": 3
         }
       ],
-      "avg_word_diff": 40.3
+      "avg_word_diff": 37.3
     },
     "42": {
       "description": "הרב אליהו אורנשטיין",
@@ -1100,9 +1185,19 @@
           "media_id": 152724,
           "date": "2026-03-24",
           "word_diff": 3
+        },
+        {
+          "media_id": 152617,
+          "date": "2026-03-25",
+          "word_diff": 24
+        },
+        {
+          "media_id": 152725,
+          "date": "2026-03-25",
+          "word_diff": 37
         }
       ],
-      "avg_word_diff": 28.8
+      "avg_word_diff": 28.9
     },
     "110": {
       "description": "הרב מאיר שפרכר",
@@ -1209,9 +1304,19 @@
           "media_id": 153156,
           "date": "2026-03-24",
           "word_diff": 14
+        },
+        {
+          "media_id": 153049,
+          "date": "2026-03-25",
+          "word_diff": 37
+        },
+        {
+          "media_id": 153157,
+          "date": "2026-03-25",
+          "word_diff": 4
         }
       ],
-      "avg_word_diff": 46.5
+      "avg_word_diff": 43.6
     },
     "69": {
       "description": "הרב אביחי קצין",
@@ -1318,9 +1423,19 @@
           "media_id": 153804,
           "date": "2026-03-24",
           "word_diff": 1
+        },
+        {
+          "media_id": 153697,
+          "date": "2026-03-25",
+          "word_diff": 4
+        },
+        {
+          "media_id": 153805,
+          "date": "2026-03-25",
+          "word_diff": 1
         }
       ],
-      "avg_word_diff": 20.5
+      "avg_word_diff": 17.5
     },
     "105": {
       "description": "הרב יוסף אלנקווה",
@@ -1377,9 +1492,14 @@
           "media_id": 153912,
           "date": "2026-03-24",
           "word_diff": 44
+        },
+        {
+          "media_id": 153913,
+          "date": "2026-03-25",
+          "word_diff": 86
         }
       ],
-      "avg_word_diff": 29.6
+      "avg_word_diff": 36.6
     },
     "98": {
       "description": "הרב פנחס אקרב",
@@ -1436,9 +1556,14 @@
           "media_id": 154020,
           "date": "2026-03-24",
           "word_diff": 2
+        },
+        {
+          "media_id": 154021,
+          "date": "2026-03-25",
+          "word_diff": 16
         }
       ],
-      "avg_word_diff": 39.1
+      "avg_word_diff": 36.6
     },
     "16": {
       "description": "הרב אברהם אהרון",
@@ -1495,9 +1620,14 @@
           "media_id": 154236,
           "date": "2026-03-24",
           "word_diff": 0
+        },
+        {
+          "media_id": 154237,
+          "date": "2026-03-25",
+          "word_diff": 4
         }
       ],
-      "avg_word_diff": 61.9
+      "avg_word_diff": 55.4
     },
     "15": {
       "description": "הרב דוד קלופפר",
@@ -1554,9 +1684,14 @@
           "media_id": 154578,
           "date": "2026-03-24",
           "word_diff": 2
+        },
+        {
+          "media_id": 154579,
+          "date": "2026-03-25",
+          "word_diff": 13
         }
       ],
-      "avg_word_diff": 9.3
+      "avg_word_diff": 9.9
     },
     "82": {
       "description": "רדיו מורשת",
@@ -1608,6 +1743,11 @@
           "media_id": 155566,
           "date": "2026-03-24",
           "word_diff": 6
+        },
+        {
+          "media_id": 155567,
+          "date": "2026-03-25",
+          "word_diff": null
         }
       ],
       "avg_word_diff": 115.8
@@ -1667,9 +1807,14 @@
           "media_id": 156950,
           "date": "2026-03-24",
           "word_diff": 37
+        },
+        {
+          "media_id": 156951,
+          "date": "2026-03-25",
+          "word_diff": 5
         }
       ],
-      "avg_word_diff": 113.9
+      "avg_word_diff": 101.8
     },
     "96": {
       "description": "הרב יהונתן ברגר",
@@ -1726,9 +1871,14 @@
           "media_id": 303307,
           "date": "2026-03-24",
           "word_diff": 2
+        },
+        {
+          "media_id": 303308,
+          "date": "2026-03-25",
+          "word_diff": 8
         }
       ],
-      "avg_word_diff": 9.8
+      "avg_word_diff": 9.4
     },
     "129": {
       "description": "\"הדף בעיון\"",
@@ -1784,10 +1934,15 @@
         {
           "media_id": 303585,
           "date": "2026-03-24",
-          "word_diff": null
+          "word_diff": 30
+        },
+        {
+          "media_id": 303586,
+          "date": "2026-03-25",
+          "word_diff": 42
         }
       ],
-      "avg_word_diff": 68.6
+      "avg_word_diff": 59.3
     },
     "161": {
       "description": "הרב מאור דוד כהן",
@@ -1844,9 +1999,14 @@
           "media_id": 303806,
           "date": "2026-03-24",
           "word_diff": 24
+        },
+        {
+          "media_id": 303807,
+          "date": "2026-03-25",
+          "word_diff": 2
         }
       ],
-      "avg_word_diff": 15.1
+      "avg_word_diff": 13.7
     },
     "172": {
       "description": "הרב דוב מילר",
@@ -1903,9 +2063,14 @@
           "media_id": 303915,
           "date": "2026-03-24",
           "word_diff": 5
+        },
+        {
+          "media_id": 303916,
+          "date": "2026-03-25",
+          "word_diff": 31
         }
       ],
-      "avg_word_diff": 89.9
+      "avg_word_diff": 82.5
     },
     "179": {
       "description": "הרב שאול יונתן וינגורט",
@@ -1962,9 +2127,14 @@
           "media_id": 304054,
           "date": "2026-03-24",
           "word_diff": 7
+        },
+        {
+          "media_id": 304055,
+          "date": "2026-03-25",
+          "word_diff": 39
         }
       ],
-      "avg_word_diff": 26.8
+      "avg_word_diff": 29.2
     },
     "185": {
       "description": "הרב זיסמן",
@@ -2021,9 +2191,14 @@
           "media_id": 304411,
           "date": "2026-03-24",
           "word_diff": 13
+        },
+        {
+          "media_id": 304412,
+          "date": "2026-03-25",
+          "word_diff": 3
         }
       ],
-      "avg_word_diff": 14.2
+      "avg_word_diff": 19.3
     },
     "123": {
       "description": "הרב אפרים סגל",
@@ -2130,9 +2305,19 @@
           "media_id": 304955,
           "date": "2026-03-24",
           "word_diff": 75
+        },
+        {
+          "media_id": 304848,
+          "date": "2026-03-25",
+          "word_diff": 30
+        },
+        {
+          "media_id": 304956,
+          "date": "2026-03-25",
+          "word_diff": 65
         }
       ],
-      "avg_word_diff": 54.0
+      "avg_word_diff": 53.3
     },
     "160": {
       "description": "הגמרא הדיגיטלית, הרב קובלסקי",
@@ -2189,9 +2374,14 @@
           "media_id": 305280,
           "date": "2026-03-24",
           "word_diff": null
+        },
+        {
+          "media_id": 305281,
+          "date": "2026-03-25",
+          "word_diff": 0
         }
       ],
-      "avg_word_diff": 1.2
+      "avg_word_diff": 1.0
     },
     "152": {
       "description": "הרב מיכאל קמין",
@@ -2247,6 +2437,11 @@
         {
           "media_id": 305388,
           "date": "2026-03-24",
+          "word_diff": null
+        },
+        {
+          "media_id": 305389,
+          "date": "2026-03-25",
           "word_diff": null
         }
       ],
@@ -2357,9 +2552,19 @@
           "media_id": 305604,
           "date": "2026-03-24",
           "word_diff": 3
+        },
+        {
+          "media_id": 305497,
+          "date": "2026-03-25",
+          "word_diff": 1
+        },
+        {
+          "media_id": 305605,
+          "date": "2026-03-25",
+          "word_diff": 2
         }
       ],
-      "avg_word_diff": 1.9
+      "avg_word_diff": 1.8
     },
     "184": {
       "description": "הרב אלי סטפנסקי",
@@ -2416,9 +2621,14 @@
           "media_id": 306036,
           "date": "2026-03-24",
           "word_diff": 51
+        },
+        {
+          "media_id": 306037,
+          "date": "2026-03-25",
+          "word_diff": 66
         }
       ],
-      "avg_word_diff": 55.3
+      "avg_word_diff": 58.0
     },
     "162": {
       "description": "הרב ידידיה דהן",
@@ -2475,9 +2685,14 @@
           "media_id": 306252,
           "date": "2026-03-24",
           "word_diff": 4
+        },
+        {
+          "media_id": 306253,
+          "date": "2026-03-25",
+          "word_diff": 12
         }
       ],
-      "avg_word_diff": 19.9
+      "avg_word_diff": 18.9
     },
     "182": {
       "description": "נפתלי רמתי",
@@ -2534,9 +2749,14 @@
           "media_id": 306468,
           "date": "2026-03-24",
           "word_diff": 8
+        },
+        {
+          "media_id": 306469,
+          "date": "2026-03-25",
+          "word_diff": 0
         }
       ],
-      "avg_word_diff": 2.5
+      "avg_word_diff": 2.0
     },
     "155": {
       "description": "הרב מצליח חי מאזוז",
@@ -2643,6 +2863,16 @@
           "media_id": 307008,
           "date": "2026-03-24",
           "word_diff": 20
+        },
+        {
+          "media_id": 306901,
+          "date": "2026-03-25",
+          "word_diff": 31
+        },
+        {
+          "media_id": 307009,
+          "date": "2026-03-25",
+          "word_diff": null
         }
       ],
       "avg_word_diff": 31.0
@@ -2702,9 +2932,14 @@
           "media_id": 307226,
           "date": "2026-03-24",
           "word_diff": 12
+        },
+        {
+          "media_id": 307227,
+          "date": "2026-03-25",
+          "word_diff": 12
         }
       ],
-      "avg_word_diff": 12.3
+      "avg_word_diff": 12.2
     },
     "163": {
       "description": "הרב יחזקאל הרטמן",
@@ -2760,6 +2995,11 @@
         {
           "media_id": 307552,
           "date": "2026-03-24",
+          "word_diff": null
+        },
+        {
+          "media_id": 307553,
+          "date": "2026-03-25",
           "word_diff": null
         }
       ],
@@ -2820,6 +3060,11 @@
           "media_id": 307904,
           "date": "2026-03-24",
           "word_diff": null
+        },
+        {
+          "media_id": 307905,
+          "date": "2026-03-25",
+          "word_diff": null
         }
       ],
       "avg_word_diff": 1.5
@@ -2869,9 +3114,14 @@
           "media_id": 309749,
           "date": "2026-03-24",
           "word_diff": 0
+        },
+        {
+          "media_id": 309752,
+          "date": "2026-03-25",
+          "word_diff": 2
         }
       ],
-      "avg_word_diff": 1.8
+      "avg_word_diff": 1.9
     },
     "51": {
       "description": "",

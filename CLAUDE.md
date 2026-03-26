@@ -133,6 +133,10 @@ Segment [17]: 85% (7 words) pos 120-126
 
 For low-scoring segments (<50%), word-level alignment details are logged.
 
+## S3 Word Diff
+
+See [`s3_word_diff.md`](s3_word_diff.md) for full documentation of `s3_word_diff.py` — S3 scanning, CSV structure, `--lesson-dates` DB-based date assignment, and duplicate date merging.
+
 ## Stable Whisper Probability Analysis
 
 `probability_analysis.py` — Analyzes JSON output from stable_whisper. Extracts word-level data and detects transcription quality degradation. All output (Excel + PNG plots) goes to the `output/` folder.

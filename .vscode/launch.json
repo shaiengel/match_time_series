@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/banded_dtw.py",
             "args": ["--save-plot", "--window-type", "slantedband",
-            "--prefix", "input/306031.pre-fix.txt", "--corrected", "input/306031.txt"],
+            "--prefix", "input/303585.pre-fix.txt", "--corrected", "input/303585.txt"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
@@ -26,7 +26,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/probability_analysis.py",
-            "args": ["input/306031.json", "--ma-window", "100", "--target", "0.25"],
+            "args": ["input/304412.json", "--ma-window", "100", "--target", "0.25"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
@@ -77,7 +77,7 @@
             "cwd": "${workspaceFolder}"
         },        
         {
-            "name": "S3 Word Diff Fetch",
+            "name": "build csv of Word Diff",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
@@ -86,7 +86,16 @@
             "cwd": "${workspaceFolder}"
         },
         {
-            "name": "S3 Word Diff Plot",
+            "name": "build csv of Word Diff with Dates",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/s3_word_diff.py",
+            "args": ["--fetch", "--lesson-dates", "2026-03-24,2026-03-25,2026-03-26"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "csv Plot",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
@@ -95,7 +104,7 @@
             "cwd": "${workspaceFolder}"
         },
         {
-            "name": "S3 Word Diff Plot Bins",
+            "name": "csv Plot Bins",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
@@ -104,20 +113,20 @@
             "cwd": "${workspaceFolder}"
         },
         {
-            "name": "S3 Word Diff Plot Bins Date",
+            "name": "csv Plot Bins Date",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
-            "args": ["--plot-bins", "--date", "2026-03-22"],
+            "args": ["--plot-bins", "--date", "2026-03-25"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
         {
-            "name": "S3 Word Diff Date",
+            "name": "plot Difference of specific Date",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
-            "args": ["--date", "2026-03-22", "--plot-max", "10000"],
+            "args": ["--date", "2026-03-24", "--plot-max", "10000"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
@@ -131,11 +140,20 @@
             "cwd": "${workspaceFolder}"
         },
         {
+            "name": "Build Lecturers JSON (re-fetch date)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/lecturer_analysis.py",
+            "args": ["--build", "--date", "2026-03-24"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}"
+        },
+        {
             "name": "Plot Lecturers Word Diff",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/lecturer_analysis.py",
-            "args": ["--plot", "--from-date", "2026-02-25", "--lecturer-id", "47"],
+            "args": ["--plot", "--from-date", "2026-02-25", "--lecturer-id", "185"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },

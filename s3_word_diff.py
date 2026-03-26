@@ -6,17 +6,60 @@ import os
 import re
 from collections import defaultdict
 from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import quote_plus
 
 import boto3
 import matplotlib.pyplot as plt
 import numpy as np
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, text
 
+ENV_PATH = Path(r"C:\portal\transcription\audio_manager\.env")
+load_dotenv(ENV_PATH, override=True)
 
 BUCKET = "portal-daf-yomi-fixed-text"
 TIMESTAMP_RE = re.compile(r"^\[\d+\]\s+\d{2}:\d{2}:\d{2}\.\d{3}\s*-\s*\d{2}:\d{2}:\d{2}\.\d{3}:\s*")
 CSV_PATH = "s3_word_diff.csv"
 TRIM_CAP = 150
 BIN_EDGES = list(range(0, 160, 10))  # [0, 10, 20, ..., 150]
+
+
+def get_engine():
+    driver = os.getenv("DB_DRIVER_WINDOWS", "ODBC Driver 17 for SQL Server")
+    host = os.getenv("DB_HOST", "127.0.0.1")
+    port = os.getenv("DB_PORT", "1433")
+    database = os.getenv("DB_NAME", "vps_daf-yomi")
+    user = os.getenv("DB_USER", "readonly")
+    password = os.getenv("DB_PASSWORD", "")
+    conn_str = (
+        f"mssql+pyodbc://{user}:{quote_plus(password)}@{host}:{port}/{database}"
+        f"?driver={quote_plus(driver)}"
+    )
+    return create_engine(conn_str)
+
+
+def get_media_ids_for_dates(dates):
+    """Query DB to get a mapping of media_id -> calendar_date for the given dates."""
+    engine = get_engine()
+    media_id_to_date = {}
+    with engine.connect() as conn:
+        for date_str in dates:
+            calendar_rows = conn.execute(
+                text("SELECT DISTINCT MassechetId, DafId FROM [vps_daf-yomi].[dbo].[Calendar] WHERE Date = :d"),
+                {"d": date_str},
+            ).fetchall()
+            for massechet_id, daf_id in calendar_rows:
+                media_rows = conn.execute(
+                    text("""
+                        SELECT [media_id] FROM [vps_daf-yomi].[dbo].[View_Media]
+                        WHERE massechet_id = :mid AND daf_id = :did AND language_en = 'hebrew'
+                    """),
+                    {"mid": massechet_id, "did": daf_id},
+                ).fetchall()
+                for (media_id,) in media_rows:
+                    media_id_to_date[str(media_id)] = date_str
+    return media_id_to_date
 
 
 def strip_timestamps(text: str) -> str:
@@ -114,6 +157,39 @@ def compute_date_stats(diffs):
     }
 
 
+def merge_date_stats(existing, new):
+    """Merge two stats dicts for the same date. Returns a new merged dict."""
+    n1, n2 = int(existing['N']), int(new['N'])
+    n = n1 + n2
+    above1, above2 = int(existing['>150']), int(new['>150'])
+    trim1 = n1 - above1
+    trim2 = n2 - above2
+    trim_total = trim1 + trim2
+
+    def wavg(v1, v2):
+        return round((float(v1) * n1 + float(v2) * n2) / n, 1) if n else 0.0
+
+    bins1 = [int(b) for b in existing['Bins'].split(';')]
+    bins2 = [int(b) for b in new['Bins'].split(';')]
+    merged_bins = [a + b for a, b in zip(bins1, bins2)]
+
+    if trim_total > 0:
+        trim_avg = round((float(existing['TrimAvg']) * trim1 + float(new['TrimAvg']) * trim2) / trim_total, 1)
+    else:
+        trim_avg = 0.0
+
+    return {
+        'Date': existing['Date'],
+        'N': n,
+        'P25': wavg(existing['P25'], new['P25']),
+        'P50': wavg(existing['P50'], new['P50']),
+        'P75': wavg(existing['P75'], new['P75']),
+        'TrimAvg': trim_avg,
+        '>150': above1 + above2,
+        'Bins': ';'.join(str(b) for b in merged_bins),
+    }
+
+
 def read_csv(csv_path):
     """Read existing CSV, return list of row dicts and the latest date (or None)."""
     if not os.path.exists(csv_path):
@@ -139,7 +215,7 @@ def write_csv(csv_path, rows):
         writer.writerows(rows)
 
 
-def fetch_mode(s3, csv_path):
+def fetch_mode(s3, csv_path, lesson_dates=None):
     """Fetch from S3 (incremental), compute per-date stats, write CSV."""
     existing_rows, latest_date = read_csv(csv_path)
 
@@ -152,6 +228,26 @@ def fetch_mode(s3, csv_path):
 
     if not results:
         print("No new data to fetch. CSV is up to date.")
+        return
+
+    if lesson_dates:
+        print(f"Looking up media IDs in DB for dates: {', '.join(lesson_dates)}")
+        media_id_to_date = get_media_ids_for_dates(lesson_dates)
+        print(f"  Found {len(media_id_to_date)} media IDs across {len(lesson_dates)} date(s)")
+        mapped_results = []
+        unmatched = 0
+        for _s3_date, file_id, abs_diff in results:
+            cal_date = media_id_to_date.get(file_id)
+            if cal_date:
+                mapped_results.append((cal_date, file_id, abs_diff))
+            else:
+                unmatched += 1
+        if unmatched:
+            print(f"  {unmatched} S3 file(s) not matched to any provided date — skipped")
+        results = mapped_results
+
+    if not results:
+        print("No matched data to add to CSV.")
         return
 
     # Group by date
@@ -171,9 +267,16 @@ def fetch_mode(s3, csv_path):
         new_rows.append(stats)
         print(f"{date:<14} {stats['N']:>5} {stats['P25']:>8} {stats['P50']:>8} {stats['P75']:>8} {stats['TrimAvg']:>8} {stats['>150']:>6}")
 
-    all_rows = existing_rows + new_rows
-    write_csv(csv_path, all_rows)
-    print(f"\nCSV written to {csv_path} ({len(all_rows)} dates total)")
+    existing_by_date = {r['Date']: r for r in existing_rows}
+    for row in new_rows:
+        date = row['Date']
+        if date in existing_by_date:
+            print(f"  Merging duplicate date {date} (existing N={existing_by_date[date]['N']}, new N={row['N']})")
+            existing_by_date[date] = merge_date_stats(existing_by_date[date], row)
+        else:
+            existing_by_date[date] = row
+    write_csv(csv_path, list(existing_by_date.values()))
+    print(f"\nCSV written to {csv_path} ({len(existing_by_date)} dates total)")
 
 
 def plot_mode(csv_path, last=None):
@@ -364,6 +467,8 @@ def main():
     parser = argparse.ArgumentParser(description="Compare word counts between S3 file pairs")
     parser.add_argument("--fetch", action="store_true",
                         help="Fetch from S3 (incremental) and write per-date stats to CSV")
+    parser.add_argument("--lesson-dates", type=str, default=None,
+                        help="Comma-separated calendar dates (YYYY-MM-DD) to assign new S3 files to via DB lookup")
     parser.add_argument("--plot", action="store_true",
                         help="Plot metrics from CSV (no S3 access)")
     parser.add_argument("--plot-bins", action="store_true",
@@ -381,7 +486,8 @@ def main():
     if args.fetch:
         session = boto3.Session(profile_name="portal")
         s3 = session.client("s3")
-        fetch_mode(s3, args.csv)
+        lesson_dates = [d.strip() for d in args.lesson_dates.split(",")] if args.lesson_dates else None
+        fetch_mode(s3, args.csv, lesson_dates=lesson_dates)
     elif args.plot:
         plot_mode(args.csv, last=args.last)
     elif args.plot_bins:
