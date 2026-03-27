@@ -51,6 +51,7 @@ One row per date, aggregated across all file pairs uploaded that day.
 | TrimAvg | Mean abs word diff for files with diff ≤ 150 |
 | >150 | Count of files with abs diff > 150 |
 | Bins | Semicolon-separated bin counts: [0-10), [10-20), ..., [140-150), [150+] |
+| TotalDuration | Total lesson duration for the date in seconds (sum of all VTT end-timestamps) |
 
 ## Date Assignment
 
@@ -63,6 +64,14 @@ If a date already exists in the CSV and new data arrives for the same date (e.g.
 - **N, >150, Bins** — summed exactly
 - **TrimAvg** — weighted average by non-outlier count
 - **P25, P50, P75** — weighted average by N (approximation; raw values not stored)
+
+## Duration Calculation
+
+`TotalDuration` is computed on every `--fetch` run by reading `{media_id}.vtt` from the `final-transcription` S3 bucket for each file pair. The last `HH:MM:SS.mmm --> HH:MM:SS.mmm` line in the VTT gives the end-timestamp of the final cue, which is used as the lesson duration. Durations are summed across all files for the date and stored as integer seconds.
+
+- Files with no VTT in `final-transcription` contribute 0 to the sum.
+- Existing CSV rows (fetched before this feature was added) have an empty `TotalDuration` column.
+- When rows are merged, `TotalDuration` values are summed exactly.
 
 ## DB Connection
 

@@ -26,7 +26,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/probability_analysis.py",
-            "args": ["input/304412.json", "--ma-window", "100", "--target", "0.25"],
+            "args": ["input/307011.json", "--ma-window", "100", "--target", "0.25"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },
@@ -117,7 +117,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/s3_word_diff.py",
-            "args": ["--plot-bins", "--date", "2026-03-25"],
+            "args": ["--plot-bins", "--date", "2026-03-27"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}"
         },

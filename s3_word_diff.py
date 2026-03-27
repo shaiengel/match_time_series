@@ -19,7 +19,9 @@ ENV_PATH = Path(r"C:\portal\transcription\audio_manager\.env")
 load_dotenv(ENV_PATH, override=True)
 
 BUCKET = "portal-daf-yomi-fixed-text"
+VTT_BUCKET = "final-transcription"
 TIMESTAMP_RE = re.compile(r"^\[\d+\]\s+\d{2}:\d{2}:\d{2}\.\d{3}\s*-\s*\d{2}:\d{2}:\d{2}\.\d{3}:\s*")
+VTT_TIME_RE = re.compile(r'\d{2}:\d{2}:\d{2}\.\d{3}\s+-->\s+(\d{2}):(\d{2}):(\d{2})\.(\d{3})')
 CSV_PATH = "s3_word_diff.csv"
 TRIM_CAP = 150
 BIN_EDGES = list(range(0, 160, 10))  # [0, 10, 20, ..., 150]
@@ -60,6 +62,27 @@ def get_media_ids_for_dates(dates):
                 for (media_id,) in media_rows:
                     media_id_to_date[str(media_id)] = date_str
     return media_id_to_date
+
+
+def parse_vtt_duration(content: str):
+    """Return duration in seconds from the last cue end-timestamp in a VTT file."""
+    last_match = None
+    for m in VTT_TIME_RE.finditer(content):
+        last_match = m
+    if not last_match:
+        return None
+    h, m, s, ms = int(last_match.group(1)), int(last_match.group(2)), int(last_match.group(3)), int(last_match.group(4))
+    return h * 3600 + m * 60 + s + ms / 1000
+
+
+def get_vtt_duration(s3, file_id: str):
+    """Fetch {file_id}.vtt from VTT_BUCKET and return duration in seconds, or None if missing."""
+    try:
+        obj = s3.get_object(Bucket=VTT_BUCKET, Key=f"{file_id}.vtt")
+        content = obj["Body"].read().decode("utf-8")
+        return parse_vtt_duration(content)
+    except s3.exceptions.NoSuchKey:
+        return None
 
 
 def strip_timestamps(text: str) -> str:
@@ -120,8 +143,9 @@ def fetch_all_pairs(s3, after_date=None):
         pfx_words = count_words(pfx_cleaned)
 
         abs_diff = abs(txt_words - pfx_words)
+        duration = get_vtt_duration(s3, file_id)
         date = key_to_date[txt_by_id[file_id]]
-        results.append((date, file_id, abs_diff))
+        results.append((date, file_id, abs_diff, duration))
 
     return results
 
@@ -178,6 +202,9 @@ def merge_date_stats(existing, new):
     else:
         trim_avg = 0.0
 
+    dur1 = float(existing.get('TotalDuration') or 0)
+    dur2 = float(new.get('TotalDuration') or 0)
+
     return {
         'Date': existing['Date'],
         'N': n,
@@ -187,6 +214,7 @@ def merge_date_stats(existing, new):
         'TrimAvg': trim_avg,
         '>150': above1 + above2,
         'Bins': ';'.join(str(b) for b in merged_bins),
+        'TotalDuration': int(dur1 + dur2),
     }
 
 
@@ -208,9 +236,9 @@ def read_csv(csv_path):
 def write_csv(csv_path, rows):
     """Write rows (list of dicts) to CSV, sorted by Date ascending."""
     rows.sort(key=lambda r: r['Date'])
-    fieldnames = ['Date', 'N', 'P25', 'P50', 'P75', 'TrimAvg', '>150', 'Bins']
+    fieldnames = ['Date', 'N', 'P25', 'P50', 'P75', 'TrimAvg', '>150', 'Bins', 'TotalDuration']
     with open(csv_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction='ignore', restval='')
         writer.writeheader()
         writer.writerows(rows)
 
@@ -236,10 +264,10 @@ def fetch_mode(s3, csv_path, lesson_dates=None):
         print(f"  Found {len(media_id_to_date)} media IDs across {len(lesson_dates)} date(s)")
         mapped_results = []
         unmatched = 0
-        for _s3_date, file_id, abs_diff in results:
+        for _s3_date, file_id, abs_diff, duration in results:
             cal_date = media_id_to_date.get(file_id)
             if cal_date:
-                mapped_results.append((cal_date, file_id, abs_diff))
+                mapped_results.append((cal_date, file_id, abs_diff, duration))
             else:
                 unmatched += 1
         if unmatched:
@@ -252,20 +280,26 @@ def fetch_mode(s3, csv_path, lesson_dates=None):
 
     # Group by date
     by_date = defaultdict(list)
-    for date, file_id, abs_diff in results:
+    by_date_duration = defaultdict(float)
+    for date, file_id, abs_diff, duration in results:
         by_date[date].append(abs_diff)
+        if duration is not None:
+            by_date_duration[date] += duration
 
     new_dates = sorted(by_date.keys())
     print(f"\n  New dates: {len(new_dates)}")
-    print(f"\n{'Date':<14} {'N':>5} {'P25':>8} {'P50':>8} {'P75':>8} {'TrimAvg':>8} {'>150':>6}")
-    print("-" * 60)
+    print(f"\n{'Date':<14} {'N':>5} {'P25':>8} {'P50':>8} {'P75':>8} {'TrimAvg':>8} {'>150':>6} {'Duration':>12}")
+    print("-" * 75)
 
     new_rows = []
     for date in new_dates:
         stats = compute_date_stats(by_date[date])
         stats['Date'] = date
+        stats['TotalDuration'] = int(by_date_duration[date])
         new_rows.append(stats)
-        print(f"{date:<14} {stats['N']:>5} {stats['P25']:>8} {stats['P50']:>8} {stats['P75']:>8} {stats['TrimAvg']:>8} {stats['>150']:>6}")
+        dur_secs = stats['TotalDuration']
+        dur_str = f"{dur_secs // 3600}h{(dur_secs % 3600) // 60}m"
+        print(f"{date:<14} {stats['N']:>5} {stats['P25']:>8} {stats['P50']:>8} {stats['P75']:>8} {stats['TrimAvg']:>8} {stats['>150']:>6} {dur_str:>12}")
 
     existing_by_date = {r['Date']: r for r in existing_rows}
     for row in new_rows:
